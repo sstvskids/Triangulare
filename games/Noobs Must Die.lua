@@ -104,15 +104,10 @@ end
 
 -- Tabs
 local Tabs = {
-  Settings = {
-    Report = true,
-    Credits = true
-  },
   BlatantTab = Window:Tab({ Title = "Blatant", Icon = "swords"}),
   ItemsTab = Window:Tab({ Title = "Items", Icon = "box"}),
   FightersTab = Window:Tab({ Title = "Fighters", Icon = "person-standing"}),
   GodsTab = Window:Tab({ Title = "Invencibility", Icon = "sparkles"}),
-  divider1 = Window:Divider()
 }
 Window:SelectTab(1)
 

@@ -1,7 +1,7 @@
 local function LoadScript(path)
   local Script = game:HttpGet("https://raw.githubusercontent.com/Moligrafi001/Triangulare/main/" .. game:GetService("HttpService"):UrlEncode(path))
   local Credits = game:HttpGet("https://raw.githubusercontent.com/Moligrafi001/Triangulare/main/extra/Credits.lua")
-  loadstring(Script .. Credits)()
+  loadstring(Script .. "\n" .. Credits)()
 end
 
 local Game = game.GameId

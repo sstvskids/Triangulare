@@ -10,5 +10,5 @@ local Game = game.GameId
 if Game == 7516718402 then
   LoadScript("games/Noobs Must Die.lua", "cu gratuito")
 else
-  LoadScript("Triangulare.lua")
+  LoadScript("Triangulare.lua", "Universal")
 end

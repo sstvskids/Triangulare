@@ -147,6 +147,16 @@ Tabs.BlatantTab:Input({
     Settings.Distance = (tonumber(input) * 2) or 1
   end
 })
+Tabs.BlatantTab:Section({ Title = "Undetectable" })
+Tabs.BlatantTab:Button({
+  Title = "Finish All Quests",
+  Desc = "Finish all your active quests.",
+  Callback = function()
+    for i = 1, 9 do
+      game:GetService("ReplicatedStorage").PlrMan.LogQuestProgress:FireServer(i, math.huge)
+    end
+  end
+})
 
 -- Items
 Tabs.ItemsTab:Section({ Title = "Selected" })
@@ -189,7 +199,7 @@ Tabs.FightersTab:Dropdown({
 Tabs.FightersTab:Section({ Title = "Equip" })
 Tabs.FightersTab:Button({
   Title = "Equip Selected Fighter",
-  Desc = "Gives you the amount selected of the selected item.",
+  Desc = "Equip the selected fighter.",
   Callback = function()
     eu.PlayerGui.ScreenUI.SetActiveFighter:FireServer(Settings.Fighter)
     eu.PlayerGui.ScreenUI.StartGame:FireServer()

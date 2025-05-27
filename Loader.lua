@@ -9,6 +9,8 @@ local Game = game.GameId
 
 if Game == 7516718402 then
   LoadScript("games/Noobs Must Die.lua", "Noobs Must Die")
+elseif Game == 6944270854 then
+  LoadScript("games/Rope Battles.lua", "Rope Battles")
 else
   LoadScript("Triangulare.lua", "Universal")
 end

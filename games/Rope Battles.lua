@@ -126,7 +126,7 @@ Tabs.ItemsTab:Dropdown({
 Tabs.ItemsTab:Section({ Title = "Equip" })
 Tabs.ItemsTab:Button({
   Title = "Equip Selected Rope",
-  Desc = "Equip the selected item.",
+  Desc = "Equip the selected rope.",
   Callback = function()
     game:GetService("ReplicatedStorage").RemoteFunctions.EquipToolRF:InvokeServer(Settings.Selected)
   end

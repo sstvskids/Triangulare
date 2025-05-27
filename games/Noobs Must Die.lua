@@ -3,7 +3,7 @@ local Window = WindUI:CreateWindow({
   Title = "Triangulare | Noobs Must Die",
   Icon = "triangle",
   Author = "by Moligrafi",
-  Folder = "Hallow Hub",
+  Folder = "Triangulare",
   Size = UDim2.fromOffset(580, 460),
   Transparent = true,
   Theme = "Dark",
@@ -18,7 +18,7 @@ Window:EditOpenButton({
   Icon = "triangle",
   CornerRadius = UDim.new(0,16),
   StrokeThickness = 2,
-  Color = ColorSequence.new(Color3.fromHex("FF0F7B"), Color3.fromHex("F89B29")),
+  Color = ColorSequence.new(Color3.fromRGB(0, 255, 120), Color3.fromRGB(0, 120, 255)),
   Draggable = true
 })
 

@@ -1,6 +1,6 @@
 local WindUI = loadstring(game:HttpGet("https://github.com/Footagesus/WindUI/releases/latest/download/main.lua"))()
 local Window = WindUI:CreateWindow({
-  Title = "Triangulare",
+  Title = "Triangulare | Noobs Must Die",
   Icon = "triangle",
   Author = "by Moligrafi",
   Folder = "Hallow Hub",

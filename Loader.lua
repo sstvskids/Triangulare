@@ -12,7 +12,7 @@ if Game == 7516718402 then
 elseif Game == 6944270854 then
   LoadScript("games/Rope Battles.lua", "Rope Battles")
 elseif Game == 7453941040 then
-  MyBigHotPenis("games/Dangerous Night.lua", "Dangerous Night")
+  LoadScript("games/Dangerous Night.lua", "Dangerous Night")
 else
   LoadScript("Triangulare.lua", "Universal")
 end

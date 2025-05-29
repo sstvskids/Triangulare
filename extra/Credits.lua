@@ -7,9 +7,9 @@ local Settings = {
 -- Supported
 local function SupportedList(type)
   local gamePlaceIds = {
-    ["Noobs Must Die"] = 123,
-    ["Rope Battles"] = 123,
-    ["Dangerous Night"] = 123
+    ["Noobs Must Die"] = 93557410403539,
+    ["Rope Battles"] = 136195938137126,
+    ["Dangerous Night"] = 109686116036889
   }
   if type == "Names" then
     local Names = {}

@@ -473,7 +473,7 @@ Tabs.Knife:Toggle({
     AutoSlash()
   end
 })
-Tabs.knife:Input({
+Tabs.Knife:Input({
   Title = "Slash Cooldown",
   Value = "0.5",
   Placeholder = "In seconds, ex.: 0.5",

@@ -1,7 +1,7 @@
 -- Setup
 Tabs.ExtraDivider = Window:Divider()
 local Settings = {
-  Teleport = 0
+  Teleport = 93557410403539
 }
 
 -- Supported
@@ -16,6 +16,7 @@ local function SupportedList(type)
     for name, _ in pairs(gamePlaceIds) do
       table.insert(Names, name)
     end
+    return Names
   end
   return gamePlaceIds
 end
@@ -24,7 +25,7 @@ Tabs.SupportedTab:Section({ Title = "Supported Games" })
 Tabs.SupportedTab:Dropdown({
   Title = "Selected Game",
   Values = SupportedList("Names"),
-  Value = Settings.Teleport,
+  Value = SupportedList("IDs")[Settings.Teleport],
   Callback = function(option)
     Settings.Teleport = option
   end

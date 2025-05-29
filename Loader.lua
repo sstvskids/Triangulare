@@ -13,6 +13,8 @@ elseif Game == 6944270854 then
   LoadScript("games/Rope Battles.lua", "Rope Battles")
 elseif Game == 7453941040 then
   LoadScript("games/Dangerous Night.lua", "Dangerous Night")
+elseif Game == 7219654364 then
+  LoadScript("games/DMVS.lua", "[DUELS] Murderers VS Sherrifs")
 else
   LoadScript("Triangulare.lua", "Universal")
 end

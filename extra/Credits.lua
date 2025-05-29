@@ -22,8 +22,8 @@ local function SupportedList(type)
   return gamePlaceIds
 end
 CredTabs.SupportedTab = Window:Tab({ Title = "Games", Icon = "gamepad-2"})
-cred.SupportedTab:Section({ Title = "Supported Games" })
-Tabs.SupportedTab:Dropdown({
+CredTabs.SupportedTab:Section({ Title = "Supported Games" })
+CredTabs.SupportedTab:Dropdown({
   Title = "Selected Game",
   Values = SupportedList("Names"),
   Value = CredSettings.Teleport,
@@ -31,8 +31,8 @@ Tabs.SupportedTab:Dropdown({
     CredSettings.Teleport = option
   end
 })
-Tabs.SupportedTab:Section({ Title = "Teleport to Game" })
-Tabs.SupportedTab:Button({
+CredTabs.SupportedTab:Section({ Title = "Teleport to Game" })
+CredTabs.SupportedTab:Button({
   Title = "Teleport",
   Desc = "Teleports you to the selected game.",
   Callback = function()
@@ -42,14 +42,14 @@ Tabs.SupportedTab:Button({
 })
 
 -- Credits
-Tabs.CreditsTab = Window:Tab({ Title = "Credits", Icon = "info"})
-Tabs.CreditsTab:Section({ Title = "Developers" })
-  Tabs.CreditsTab:Paragraph({
+CredTabs.CreditsTab = Window:Tab({ Title = "Credits", Icon = "info"})
+CredTabs.CreditsTab:Section({ Title = "Developers" })
+  CredTabs.CreditsTab:Paragraph({
   Title = "Founder Developer",
   Desc = "Discord: @moligrafi",
 })
-Tabs.CreditsTab:Section({ Title = "Discord Server" })
-Tabs.CreditsTab:Paragraph({
+CredTabs.CreditsTab:Section({ Title = "Discord Server" })
+CredTabs.CreditsTab:Paragraph({
   Title = "Discord Server",
   Desc = "https://discord.gg/Pwk5HdZX3S",
   Buttons = {

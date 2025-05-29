@@ -3,6 +3,7 @@ Tabs.ExtraDivider = Window:Divider()
 local CredSettings = {
   Teleport = "Noobs Must Die"
 }
+local CredTabs = {}
 
 -- Supported
 local function SupportedList(type)
@@ -20,8 +21,8 @@ local function SupportedList(type)
   end
   return gamePlaceIds
 end
-Tabs.SupportedTab = Window:Tab({ Title = "Games", Icon = "gamepad-2"})
-Tabs.SupportedTab:Section({ Title = "Supported Games" })
+CredTabs.SupportedTab = Window:Tab({ Title = "Games", Icon = "gamepad-2"})
+cred.SupportedTab:Section({ Title = "Supported Games" })
 Tabs.SupportedTab:Dropdown({
   Title = "Selected Game",
   Values = SupportedList("Names"),

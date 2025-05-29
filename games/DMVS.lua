@@ -446,7 +446,7 @@ Tabs.Gun:Toggle({
 Tabs.Gun:Section({ Title = "Misc" })
 Tabs.Gun:Toggle({
   Title = "Spam Sound (FE)",
-  Desc = "Automatically spams the shoot Sound.",
+  Desc = "Automatically spams the shoot sound.",
   Value = false,
   Callback = function(state)
     getgenv().GunSound = state
@@ -479,5 +479,15 @@ Tabs.Knife:Input({
   Placeholder = "In seconds, ex.: 0.5",
   Callback = function(input)
     Settings.SlashCooldown = tonumber(input) or 1
+  end
+})
+Tabs.Knife:Section({ Title = "Blatant" })
+Tabs.Knife:Toggle({
+  Title = "Auto Equip Knife",
+  Desc = "Automatically equips your knife.",
+  Value = false,
+  Callback = function(state)
+    getgenv().EquipKnife = state
+    EquipKnife()
   end
 })

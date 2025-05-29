@@ -1,6 +1,6 @@
 -- Setup
 Tabs.ExtraDivider = Window:Divider()
-local Settings = {
+local CredSettings = {
   Teleport = "Noobs Must Die"
 }
 
@@ -25,9 +25,9 @@ Tabs.SupportedTab:Section({ Title = "Supported Games" })
 Tabs.SupportedTab:Dropdown({
   Title = "Selected Game",
   Values = SupportedList("Names"),
-  Value = Settings.Teleport,
+  Value = CredSettings.Teleport,
   Callback = function(option)
-    Settings.Teleport = option
+    CredSettings.Teleport = option
   end
 })
 Tabs.SupportedTab:Section({ Title = "Teleport to Game" })
@@ -35,7 +35,7 @@ Tabs.SupportedTab:Button({
   Title = "Teleport",
   Desc = "Teleports you to the selected game.",
   Callback = function()
-    local id = SupportedList("IDs")[Settings.Teleport]
+    local id = SupportedList("IDs")[CredSettings.Teleport]
     game:GetService("TeleportService"):Teleport(id, game.Players.LocalPlayer)
   end
 })

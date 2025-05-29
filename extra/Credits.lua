@@ -36,7 +36,7 @@ Tabs.SupportedTab:Button({
   Desc = "Teleports you to the selected game.",
   Callback = function()
     local id = SupportedList("IDs")[CredSettings.Teleport]
-    game:GetService("TeleportService"):Teleport(id, game.Players.LocalPlayer)
+    game:GetService("TeleportService"):Teleport(id, game:GetService("Players").LocalPlayer)
   end
 })
 

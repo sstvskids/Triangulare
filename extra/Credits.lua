@@ -23,7 +23,7 @@ Tabs.SupportedTab = Window:Tab({ Title = "Games", Icon = "gamepad-2"})
 Tabs.SupportedTab:Section({ Title = "Supported Games" })
 Tabs.SupportedTab:Dropdown({
   Title = "Selected Game",
-  Values = SupportedList("Names"),
+  Values = SupportedList("IDs"),
   Value = Settings.Teleport,
   Callback = function(option)
     Settings.Teleport = option

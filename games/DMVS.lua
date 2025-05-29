@@ -15,7 +15,7 @@ getgenv().AutoTPe = false
 -- Locals
 local eu = game:GetService("Players").LocalPlayer
 local Settings = {
-  Selected = "Invalid",
+  Selected = "Lobby",
   Teleport = "Everytime",
   TriggerbotCooldown = 3,
   SlashCooldown = 0.5,
@@ -41,13 +41,6 @@ local function Teleport()
       eu.Character.HumanoidRootPart.CFrame = CFrame.new(-1175, 47, 6475)
     elseif Settings.Selected == "MilBase" then
       eu.Character.HumanoidRootPart.CFrame = CFrame.new(-1186, 27, 3737)
-    else
-      Rayfield:Notify({
-        Title = "Nothing is selected!",
-        Content = "Select a map to teleport.",
-        Duration = 3,
-        Image = 17091459839,
-        })
     end
   end)
 end
@@ -320,8 +313,8 @@ local function GetTP()
     local tool = Instance.new("Tool")
     tool.RequiresHandle = false
     tool.Name = "Teleport Tool"
-    tool.ToolTip = "Equip and click somewhere to teleport - Hallow Hub"
-    tool.TextureId = "rbxassetid://17091459839"
+    tool.ToolTip = "Equip and click somewhere to teleport - Triangulare"
+    -- tool.TextureId = "rbxassetid://17091459839"
     
     tool.Activated:Connect(function()
       local pos = mouse.Hit.Position + Vector3.new(0, 2.5, 0)
@@ -394,7 +387,8 @@ end
 -- Tabs
 local Tabs = {
   Gun = Window:Tab({ Title = "Gun", Icon = "skull"}),
-  Knife = Window:Tab({ Title = "Knife", Icon = "sword"})
+  Knife = Window:Tab({ Title = "Knife", Icon = "sword"}),
+  Teleport = Window:Tab({ Title = "Teleport", Icon = "shell"})
 }
 Window:SelectTab(1)
 
@@ -489,5 +483,55 @@ Tabs.Knife:Toggle({
   Callback = function(state)
     getgenv().EquipKnife = state
     EquipKnife()
+  end
+})
+
+-- Teleport
+Tabs.Teleport:Section({ Title = "Teleport to Map" })
+Tabs.Teleport:Dropdown({
+  Title = "Selected Item",
+  Values = { "Lobby", "Factory", "House", "Mansion", "MilBase" },
+  Value = Settings.Selected,
+  Callback = function(option)
+    Settings.Selected = option
+  end
+})
+Tabs.Teleport:Button({
+  Title = "Teleport",
+  Desc = "Teleports you to the selected map.",
+  Callback = function()
+    Teleport()
+  end
+})
+Tabs.Teleport:Section({ Title = "Teleport Tool" })
+Tabs.Teleport:Button({
+  Title = "Get Teleport Tool",
+  Desc = "Gives you the teleport tool.",
+  Callback = function()
+    GetTP()
+  end
+})
+Tabs.Teleport:Button({
+  Title = "Remove Tool",
+  Desc = "Removes the teleport tool.",
+  Callback = function()
+    DelTP()
+  end
+})
+Tabs.teleport:Toggle({
+  Title = "Permanent Tool",
+  Desc = "Auto get teleport tool.",
+  Value = false,
+  Callback = function(state)
+    getgenv().AutoTPe = state
+    AutoTPe()
+  end
+})
+Tabs.Teleport:Dropdown({
+  Title = "Get Tool When",
+  Values = { "Tools Load", "Everytime" },
+  Value = Settings.Teleport,
+  Callback = function(option)
+    Settings.Teleport = option
   end
 })

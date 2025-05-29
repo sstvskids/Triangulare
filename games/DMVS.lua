@@ -410,7 +410,6 @@ Tabs.GunTab:Toggle({
 })
 Tabs.GunTab:Input({
   Title = "Triggerbot Cooldown",
-  Desc - "Desc",
   Value = tostring(Settings.TriggerbotCooldown),
   Placeholder = "In seconds, ex.: 15",
   Callback = function(input)

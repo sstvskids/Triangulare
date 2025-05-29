@@ -18,7 +18,7 @@ local Settings = {
   Selected = "Invalid",
   Teleport = "Everytime",
   TriggerbotCooldown = 3,
-  SlashCooldown = 0.9,
+  SlashCooldown = 0.5,
   SpamSoundCooldown = 0.2,
   KnifeCooldown = 1,
   IgnoreWalls = false,
@@ -393,13 +393,14 @@ end
 
 -- Tabs
 local Tabs = {
-  GunTab = Window:Tab({ Title = "Gun", Icon = "skull"})
+  Gun = Window:Tab({ Title = "Gun", Icon = "skull"}),
+  Knife = Window:Tab({ Title = "Knife", Icon = "sword"})
 }
 Window:SelectTab(1)
 
 -- Gun
-Tabs.GunTab:Section({ Title = "Undetectable" })
-Tabs.GunTab:Toggle({
+Tabs.Gun:Section({ Title = "Undetectable" })
+Tabs.Gun:Toggle({
   Title = "Triggerbot",
   Desc = "Auto kill enemies in sight.",
   Value = false,
@@ -408,28 +409,75 @@ Tabs.GunTab:Toggle({
     Triggerbot()
   end
 })
-Tabs.GunTab:Input({
+Tabs.Gun:Input({
   Title = "Shoot Cooldown",
   Value = "3",
-  Placeholder = "In seconds, ex.: 15",
+  Placeholder = "In seconds, ex.: 3",
   Callback = function(input)
     Settings.TriggerbotCooldown = tonumber(input) or 1
   end
 })
-Tabs.GunTab:Section({ Title = "Blatant" })
-Tabs.GunTab:Button({
+Tabs.Gun:Section({ Title = "Blatant" })
+Tabs.Gun:Button({
   Title = "Kill All",
   Desc = "Kills everyone using gun.",
   Callback = function()
     KillGun()
   end
 })
-Tabs.GunTab:Toggle({
+Tabs.Gun:Toggle({
   Title = "Auto Kill",
   Desc = "Auto Kill All.",
   Value = false,
   Callback = function(state)
     getgenv().AutoGun = state
     AutoGun()
+  end
+})
+Tabs.Gun:Toggle({
+  Title = "Auto Equip Gun",
+  Desc = "Automatically equips your gun.",
+  Value = false,
+  Callback = function(state)
+    getgenv().PullGun = state
+    PullGun()
+  end
+})
+Tabs.Gun:Section({ Title = "Misc" })
+Tabs.Gun:Toggle({
+  Title = "Spam Sound (FE)",
+  Desc = "Automatically spams the shoot Sound.",
+  Value = false,
+  Callback = function(state)
+    getgenv().GunSound = state
+    GunSound()
+  end
+})
+Tabs.Gun:Input({
+  Title = "Sound Cooldown",
+  Value = "0.2",
+  Placeholder = "In seconds, ex.: 0.2",
+  Callback = function(input)
+    Settings.SpamSoundCooldown= tonumber(input) or 1
+  end
+})
+
+-- Knife
+Tabs.Knife:Section({ Title = "Legit" })
+Tabs.Knife:Toggle({
+  Title = "Auto Slash",
+  Desc = "Auto use your knife.",
+  Value = false,
+  Callback = function(state)
+    getgenv().AutoSlash = state
+    AutoSlash()
+  end
+})
+Tabs.knife:Input({
+  Title = "Slash Cooldown",
+  Value = "0.5",
+  Placeholder = "In seconds, ex.: 0.5",
+  Callback = function(input)
+    Settings.SlashCooldown = tonumber(input) or 1
   end
 })

@@ -398,7 +398,7 @@ local Tabs = {
 Window:SelectTab(1)
 
 -- Gun
-Tabs.GunTab:Section({ Title = "Undetectable" })
+Tabs.GunTab:Section({ Title = "cuzinho hj mor??" })
 Tabs.GunTab:Toggle({
   Title = "Triggerbot",
   Desc = "Auto kill enemies in sight.",

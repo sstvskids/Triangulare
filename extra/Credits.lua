@@ -23,7 +23,7 @@ Tabs.SupportedTab = Window:Tab({ Title = "Games", Icon = "gamepad-2"})
 Tabs.SupportedTab:Section({ Title = "Supported Games" })
 Tabs.SupportedTab:Dropdown({
   Title = "Selected Game",
-  Values = SupportedList("IDs"),
+  Values = SupportedList("Names"),
   Value = Settings.Teleport,
   Callback = function(option)
     Settings.Teleport = option
@@ -34,7 +34,7 @@ Tabs.SupportedTab:Button({
   Title = "Teleport",
   Desc = "Teleports you to the selected game.",
   Callback = function()
-    local id = SupportedList("Names")[Settings.Teleport]
+    local id = SupportedList("IDs")[Settings.Teleport]
     game:GetService("TeleportService"):Teleport(id, game.Players.LocalPlayer)
   end
 })

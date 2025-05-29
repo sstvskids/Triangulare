@@ -518,7 +518,7 @@ Tabs.Teleport:Button({
     DelTP()
   end
 })
-Tabs.teleport:Toggle({
+Tabs.Teleport:Toggle({
   Title = "Permanent Tool",
   Desc = "Auto get teleport tool.",
   Value = false,

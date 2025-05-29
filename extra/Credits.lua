@@ -1,9 +1,9 @@
 -- Setup
-Tabs.ExtraDivider = Window:Divider()
 local CredSettings = {
   Teleport = "Noobs Must Die"
 }
 local CredTabs = {}
+CredTabs.ExtraDivider = Window:Divider()
 
 -- Supported
 local function SupportedList(type)

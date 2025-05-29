@@ -399,6 +399,23 @@ Window:SelectTab(1)
 
 -- Gun
 Tabs.GunTab:Section({ Title = "Undetectable" })
+Tabs.GunTab:Toggle({
+  Title = "Triggerbot",
+  Desc = "Auto kill enemies in sight.",
+  Value = false,
+  Callback = function(state)
+    getgenv().Triggerbot = state
+    Triggerbot()
+  end
+})
+Tabs.GunTab:Input({
+  Title = "Triggerbot Cooldown",
+  Value = "3",
+  Placeholder = "In seconds, ex.: 15",
+  Callback = function(input)
+    Settings.TriggerbotCooldown = tonumber(input) or 1
+  end
+})
 Tabs.GunTab:Section({ Title = "Blatant" })
 Tabs.GunTab:Button({
   Title = "Kill All",

@@ -10,7 +10,8 @@ local function SupportedList(type)
   local gamePlaceIds = {
     ["Noobs Must Die"] = 93557410403539,
     ["Rope Battles"] = 136195938137126,
-    ["Dangerous Night"] = 109686116036889
+    ["Dangerous Night"] = 109686116036889,
+    ["[DUELS] Murderers VS Sherrifs"] = 135856908115931
   }
   if type == "Names" then
     local Names = {}

@@ -420,14 +420,14 @@ Tabs.Gun:Input({
 Tabs.Gun:Section({ Title = "Blatant" })
 Tabs.Gun:Button({
   Title = "Kill All",
-  Desc = "Kills everyone using gun.",
+  Desc = "Kills everyone using your gun.",
   Callback = function()
     KillGun()
   end
 })
 Tabs.Gun:Toggle({
   Title = "Auto Kill",
-  Desc = "Auto Kill All.",
+  Desc = "Auto kills everyone.",
   Value = false,
   Callback = function(state)
     getgenv().AutoGun = state

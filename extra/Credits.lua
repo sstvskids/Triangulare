@@ -1,7 +1,7 @@
 -- Setup
 Tabs.ExtraDivider = Window:Divider()
 local Settings = {
-  Teleport = 93557410403539
+  Teleport = "Noobs Must Die"
 }
 
 -- Supported
@@ -25,7 +25,7 @@ Tabs.SupportedTab:Section({ Title = "Supported Games" })
 Tabs.SupportedTab:Dropdown({
   Title = "Selected Game",
   Values = SupportedList("Names"),
-  Value = SupportedList("IDs")[Settings.Teleport],
+  Value = Settings.Teleport,
   Callback = function(option)
     Settings.Teleport = option
   end

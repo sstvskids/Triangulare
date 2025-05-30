@@ -386,7 +386,7 @@ end
 
 -- Tabs
 local Tabs = {
-  Menu = Window:Tab({ Title = "Main", Icon = "home"}),
+  Menu = Window:Tab({ Title = "Main", Icon = "leaf"}),
   Gun = Window:Tab({ Title = "Gun", Icon = "skull"}),
   Knife = Window:Tab({ Title = "Knife", Icon = "sword"}),
   Teleport = Window:Tab({ Title = "Teleport", Icon = "shell"})

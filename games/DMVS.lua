@@ -386,11 +386,49 @@ end
 
 -- Tabs
 local Tabs = {
+  Menu = Window:Tab({ Title = "Main", Icon = "home"}),
   Gun = Window:Tab({ Title = "Gun", Icon = "skull"}),
   Knife = Window:Tab({ Title = "Knife", Icon = "sword"}),
   Teleport = Window:Tab({ Title = "Teleport", Icon = "shell"})
 }
 Window:SelectTab(1)
+
+-- Menu
+Tabs.Menu:Section({ Title = "Player ESP" })
+Tabs.Menu:Toggle({
+  Title = "Player ESP",
+  Desc = "Extra Sensorial Experience.",
+  Value = false,
+  Callback = function(state)
+    getgenv().PlayerESP = state
+    PlayerESP()
+  end
+})
+Tabs.Menu:Colorpicker({
+  Title = "ESP Color",
+  Default = CorInocente,
+  Callback = function(color)
+    print("Selected color: " .. tostring(color))
+  end
+})
+Tabs.Menu:Section({ Title = "Hitbox Expander" })
+Tabs.Menu:Toggle({
+  Title = "Expand Hitboxes",
+  Desc = "Bigger hitboxes.",
+  Value = false,
+  Callback = function(state)
+    getgenv().HitBox = state
+    HitBox()
+  end
+})
+Tabs.Menu:Input({
+  Title = "Hitbox Size",
+  Value = "5",
+  Placeholder = "Default HitBox Size = 5",
+  Callback = function(input)
+    HitSize = tonumber(input) or 1
+  end
+})
 
 -- Gun
 Tabs.Gun:Section({ Title = "Undetectable" })

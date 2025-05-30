@@ -527,7 +527,7 @@ Tabs.Knife:Toggle({
 -- Teleport
 Tabs.Teleport:Section({ Title = "Teleport to Map" })
 Tabs.Teleport:Dropdown({
-  Title = "Selected Item",
+  Title = "Selected Map",
   Values = { "Lobby", "Factory", "House", "Mansion", "MilBase" },
   Value = Settings.Selected,
   Callback = function(option)

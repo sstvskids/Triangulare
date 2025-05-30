@@ -408,7 +408,7 @@ Tabs.Menu:Colorpicker({
   Title = "ESP Color",
   Default = CorInocente,
   Callback = function(color)
-    print("Selected color: " .. tostring(color))
+    CorInocente = Color3.fromRGB(color)
   end
 })
 Tabs.Menu:Section({ Title = "Hitbox Expander" })

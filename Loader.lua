@@ -15,6 +15,8 @@ elseif Game == 7453941040 then
   LoadScript("games/Dangerous Night.lua", "Dangerous Night")
 elseif Game == 7219654364 then
   LoadScript("games/DMVS.lua", "[DUELS] Murderers VS Sherrifs")
+elseif Game == 7606156849 then
+  LoadScript("games/Make a Sprunki Tycoon.lua", "Make a Sprunki Tycoon!")
 else
   LoadScript("Triangulare.lua", "Universal")
 end

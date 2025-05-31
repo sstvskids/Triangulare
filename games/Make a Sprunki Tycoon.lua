@@ -85,3 +85,12 @@ Tabs.Menu:Toggle({
     AutoSell()
   end
 })
+Tabs.Menu:Toggle({
+  Title = "Awake Workers",
+  Desc = "Automatically wake up workers.",
+  Value = false,
+  Callback = function(state)
+    getgenv().BetterWorkers = state
+    BetterWorkers()
+  end
+})

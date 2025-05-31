@@ -39,7 +39,7 @@ end
 local function AutoBuy()
   while getgenv().AutoBuy and task.wait(1) do
     for _, button in pairs(workspace.Map.Tycoons[eu.Name .. "'s Tycoon"]:GetChildren()) do
-      if string.find(button.Name, "Button") and butto:GetAttribute("Price") <= eu.leaderstats.Money.Value then
+      if string.find(button.Name, "Button") and button:GetAttribute("Price") <= eu.leaderstats.Money.Value then
         firetouchinterest(eu.Character.HumanoidRootPart, button.Head, 0)
         firetouchinterest(eu.Character.HumanoidRootPart, button.Head, 1)
       end

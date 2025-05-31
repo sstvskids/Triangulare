@@ -30,9 +30,17 @@ local function BetterWorkers()
     end
   end
 end
+local function AutoBuy()
+  while getgenv().AutoBuy and task.wait(1) do
+    for _, button in pairs(workspace.Map.Tycoons[eu.Name .. "'s Tycoon"]:GetChildren()) do
+      if string.find("Button", button.Name) and butto:GetAttribute("Price") <= eu.leaderstats.Money.Value then
+        firetouchinterest(eu.Character.HumanoidRootPart, button.Head, 0)
+        firetouchinterest(eu.Character.HumanoidRootPart, button.Head, 1)
+      end
+    end
+  end
+end
 
--- 71508074112900 place
--- 7606156849 game
 --[[
 workspace.Map.Tycoons["HallowHub's Tycoon"]["Worker 1 Button"]
 game:GetService("Players").LocalPlayer.leaderstats.Money.Value
@@ -41,3 +49,21 @@ workspace.Map.Tycoons["HallowHub's Tycoon"].Conveyor1["Insert Rocks"].BillboardG
 workspace.Map.Tycoons["HallowHub's Tycoon"]["Worker 1"].HumanoidRootPart.WakeupPrompt
 workspace.Npcs["2025110"].HumanoidRootPart.ProximityPrompt
 --]]
+
+-- Tabs
+local Tabs = {
+  Menu = Window:Tab({ Title = "Main", Icon = "home"})
+}
+Window:SelectTab(1)
+
+-- Menu
+Tabs.Menu:Section({ Title = "Auto Farm" })
+Tabs.Menu:Toggle({
+  Title = "Auto Buy Buttons",
+  Desc = "Buy the buttons you can afford.",
+  Value = false,
+  Callback = function(state)
+    getgenv().AutoBuy = state
+    AutoBuy()
+  end
+})

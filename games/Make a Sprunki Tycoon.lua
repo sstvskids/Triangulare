@@ -30,7 +30,7 @@ end
 local function BetterWorkers()
   while getgenv().BetterWorkers and task.wait(1) do
     for _, worker in pairs(workspace.Map.Tycoons[eu.Name .. "'s Tycoon"]:GetChildren()) do
-      if string.find("Worker", worker.Name) and worker.HumanoidRootPart.WakeupPrompt.Enabled then
+      if string.find(worker.Name, "Worker") and worker.HumanoidRootPart.WakeupPrompt.Enabled == true then
         fireproximityprompt(worker.HumanoidRootPart.WakeupPrompt)
       end
     end

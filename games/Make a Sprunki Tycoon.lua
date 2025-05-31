@@ -76,3 +76,12 @@ Tabs.Menu:Toggle({
     GetOre()
   end
 })
+Tabs.Menu:Toggle({
+  Title = "Auto Sell",
+  Desc = "Automatically sells Sprunkis.",
+  Value = false,
+  Callback = function(state)
+    getgenv().AutoSell = state
+    AutoSell()
+  end
+})

@@ -4,11 +4,11 @@ local eu = game:GetService("Players").LocalPlayer
 -- Functions
 local function AutoSell()
   while getgenv().AutoSell and task.wait(1) do
-    if eu.Character:FindFirstChildOfClass("Tool") then
+    if eu.Character:FindFirstChild("Sprunki") or eu.Backpack:FindFirstChild("Sprunki") then
       for _, npc in pairs(workspace.Npcs:GetChildren()) do
         if npc.HumanoidRootPart.ProximityPrompt.Enabled then
           fireproximityprompt(npc.HumanoidRootPart.ProximityPrompt)
-          if not eu.Character:FindFirstChildOfClass("Tool") then break end
+          if not eu.Character:FindFirstChild("Sprunki") and not eu.Backpack:FindFirstChild("Sprunki") then break end
         end
       end
     end
@@ -16,7 +16,7 @@ local function AutoSell()
 end
 local function GetOre()
   while getgenv().GetOre and task.wait(1) do
-    if not eu.Character:FindFirstChild("Ore") and not eu.Backpack:FindFirstChild("Ore") then
+    if not eu.Character:FindFirstChild("Fabric") and not eu.Backpack:FindFirstChild("Fabric") then
       fireproximityprompt(workspace.Map.Tycoons[eu.Name .. "'s Tycoon"]["Pile of Rubble 1"].PromptPart.ProximityPrompt)
     end
   end
@@ -65,5 +65,14 @@ Tabs.Menu:Toggle({
   Callback = function(state)
     getgenv().AutoBuy = state
     AutoBuy()
+  end
+})
+Tabs.Menu:Toggle({
+  Title = "Collet Fabric",
+  Desc = "Automatically collect fabrics.",
+  Value = false,
+  Callback = function(state)
+    getgenv().GetOre = state
+    GetOre()
   end
 })

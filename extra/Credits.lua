@@ -16,7 +16,7 @@ local function SupportedList(type)
   }
   if type == "Names" then
     local Names = {}
-    for name, _ in pairs(gamePlaceIds) do
+    for name, _ in ipairs(gamePlaceIds) do
       table.insert(Names, name)
     end
     return Names

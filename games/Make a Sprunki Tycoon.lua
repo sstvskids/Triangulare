@@ -1,3 +1,9 @@
+-- Global Values
+getgenv().AutoSell = false
+getgenv().GetOre = false
+getgenv().AutoBuy = false
+getgenv().BetterWorkers = false
+
 -- Locals
 local eu = game:GetService("Players").LocalPlayer
 

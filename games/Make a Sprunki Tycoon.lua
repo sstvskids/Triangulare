@@ -315,7 +315,7 @@ Tabs.Sprunkis:Toggle({
   end
 })
 Tabs.Sprunkis:Section({ Title = "Collect" })
-Tabs.FightersTab:Dropdown({
+Tabs.Sprunkis:Dropdown({
   Title = "Selected Sprunkis",
   Values = Settings.Sprunkis,
   Value = Settings.Sprunkis,

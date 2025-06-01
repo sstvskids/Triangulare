@@ -25,6 +25,22 @@ local function AutoDirty()
     end)
   end
 end
+local function DeliverTray()
+  for _, tray in pairs(workspace.OwnedRestaurants[eu.Name].Trash:GetChildren()) do
+    pcall(function()
+      if tray.Name == "Tray" and #tray.FoodsLeft:GetChildren() == 0 then
+        game:GetService("ReplicatedStorage").Remotes.Gameplay.PlaceItem:FireServer(tray, tray.NPCBeam.Attachment1.WorldCFrame * CFrame.new(0, 2, 0))
+      end
+    end)
+  end
+end
+local function AutoDeliver()
+  while getgenv().AutoDeliver and task.wait(1) do
+    pcall(function()
+      DeliverTray()
+    end)
+  end
+end
 local function CollectOrder()
   pcall(function()
     workspace.OwnedRestaurants[eu.Name].Furniture.CashRegisters.Register.TakeOrder:FireServer()
@@ -38,20 +54,21 @@ end
 
 -- Tabs
 local Tabs = {
-  Menu = Window:Tab({ Title = "Main", Icon = "utensils-crossed"})
+  Trays = Window:Tab({ Title = "Trays", Icon = "utensils-crossed"}),
+  Orders = Window:Tab({ Title = "Orders", Icon = "receipt"})
 }
 Window:SelectTab(1)
 
--- Menu
-Tabs.Menu:Section({ Title = "Dirty Trays" })
-Tabs.Menu:Button({
+-- Trays
+Tabs.Trays:Section({ Title = "Dirty Trays" })
+Tabs.Trays:Button({
   Title = "Collect Dirty Trays",
   Desc = "Collects all dirty trays.",
   Callback = function()
     CollectDirty()
   end
 })
-Tabs.Menu:Toggle({
+Tabs.Trays:Toggle({
   Title = "Auto Collect Trays",
   Desc = "Automatically collect dirty trays.",
   Value = false,
@@ -60,15 +77,34 @@ Tabs.Menu:Toggle({
     AutoDirty()
   end
 })
-Tabs.Menu:Section({ Title = "Orders" })
-Tabs.Menu:Button({
+Tabs.Trays:Section({ Title = "Finished Trays" })
+Tabs.Trays:Button({
+  Title = "Deliver Trays",
+  Desc = "Collects all finished trays.",
+  Callback = function()
+    DeliverTray()
+  end
+})
+Tabs.Trays:Toggle({
+  Title = "Auto Deliver",
+  Desc = "Automatically deliver finsihed trays.",
+  Value = false,
+  Callback = function(state)
+    getgenv().AutoDeliver = state
+    AutoDeliver()
+  end
+})
+
+-- Orders
+Tabs.Orders:Section({ Title = "Orders" })
+Tabs.Orders:Button({
   Title = "Collect Orders",
   Desc = "Collects all orders.",
   Callback = function()
     CollectOrder()
   end
 })
-Tabs.Menu:Toggle({
+Tabs.Orders:Toggle({
   Title = "Auto Collect Orders",
   Desc = "Automatically collect orders.",
   Value = false,

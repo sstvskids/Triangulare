@@ -118,7 +118,7 @@ Tabs.Cook:Button({
   Title = "Flip Burgers",
   Desc = "Automatically flips raw patties.",
   Callback = function()
-    CollectDirty()
+    FlipBurgers()
   end
 })
 

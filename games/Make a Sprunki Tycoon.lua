@@ -107,7 +107,7 @@ workspace.Npcs["2025110"].HumanoidRootPart.ProximityPrompt
 -- Tabs
 local Tabs = {
   Menu = Window:Tab({ Title = "Main", Icon = "house"}),
-  Sprunkis = Window:Tab({ Title = "Sprunkis", Icon = "panda"})
+  Sprunkis = Window:Tab({ Title = "Sprunkis", Icon = "box"})
 }
 Window:SelectTab(1)
 

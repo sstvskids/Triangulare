@@ -86,7 +86,7 @@ end
 local function CollectSprunkis()
   while getgenv().CollectSprunkis and task.wait(1) do
     if not eu.Character:FindFirstChild("Sprunki") and not eu.Backpack:FindFirstChild("Sprunki") then
-      for _, sprunki in pairs(workspace.Map.Tycoons[eu.Name .. "'s Tycoon"]) do
+      for _, sprunki in pairs(workspace.Map.Tycoons[eu.Name .. "'s Tycoon"]:GetChildren()) do
         if not eu.Character:FindFirstChild("Sprunki") and not eu.Backpack:FindFirstChild("Sprunki") and sprunki.Name == "Rock Container" and sprunki.PromptPart.ProximityPrompt.Enabled then
           fireproximityprompt(sprunki.PromptPart.ProximityPrompt)
         end

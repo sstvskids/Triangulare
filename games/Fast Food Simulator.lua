@@ -73,7 +73,7 @@ end
 -- Tabs
 local Tabs = {
   Trays = Window:Tab({ Title = "Trays", Icon = "utensils-crossed"}),
-  Cook = Window:Tab({ Title = "Cook", Icon = "cooking-pot"}),
+  Cook = Window:Tab({ Title = "Cook", Icon = "chef-hat"}),
   Orders = Window:Tab({ Title = "Orders", Icon = "receipt"})
 }
 Window:SelectTab(1)

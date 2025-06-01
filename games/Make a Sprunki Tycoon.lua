@@ -15,16 +15,6 @@ local Settings = {
 }
 
 -- Functions
-local function GetNearby(distance)
-  local Detected = {}
-  for _, part in pairs(workspace:GetPartBoundsInBox(eu.Character.HumanoidRootPart.CFrame, Vector3.new(distance, 20, distance), nil)) do
-    local model = part:FindFirstAncestorWhichIsA("Model")
-    if model then
-      table.insert(Detected, model)
-    end
-  end
-  return Detected
-end
 local function GetConveyor(instance)
   if string.find(instance.Name, "Worker") then
     return
@@ -61,7 +51,7 @@ local function BetterWorkers()
   while getgenv().BetterWorkers and task.wait(1) do
     pcall(function()
       for _, worker in pairs(workspace.Map.Tycoons[eu.Name .. "'s Tycoon"]:GetChildren()) do
-        if string.find(worker.Name, "Worker") and worker.HumanoidRootPart.WakeupPrompt.Enabled == true then
+        if string.find(worker.Name, "Worker") and worker.HumanoidRootPart.WakeupPrompt.Enabled then
           fireproximityprompt(worker.HumanoidRootPart.WakeupPrompt)
         end
       end
@@ -96,14 +86,9 @@ end
 local function CollectSprunkis()
   while getgenv().CollectSprunkis and task.wait(1) do
     if not eu.Character:FindFirstChild("Sprunki") and not eu.Backpack:FindFirstChild("Sprunki") then
-      for _, sprunki in pairs(GetNearby(20)) do
-        if not eu.Character:FindFirstChild("Sprunki") and not eu.Backpack:FindFirstChild("Sprunki") and sprunki:IsDescendantOf(workspace.Map.Tycoons[eu.Name .. "'s Tycoon"]) and sprunki.Name == "Rock Container" then
-          for _, item in ipairs(Settings.Sprunkis) do
-            if string.find(sprunki.PromptPart.ProximityPrompt.ActionText, item) then
-              fireproximityprompt(sprunki.PromptPart.ProximityPrompt)
-              break
-            end
-          end
+      for _, sprunki in pairs(workspace.Map.Tycoons[eu.Name .. "'s Tycoon"]) do
+        if not eu.Character:FindFirstChild("Sprunki") and not eu.Backpack:FindFirstChild("Sprunki") and sprunki.Name == "Rock Container" and sprunki.PromptPart.ProximityPrompt.Enabled then
+          fireproximityprompt(sprunki.PromptPart.ProximityPrompt)
         end
       end
     end
@@ -168,18 +153,9 @@ Tabs.Sprunkis:Toggle({
   end
 })
 Tabs.Sprunkis:Section({ Title = "Collect" })
-Tabs.Sprunkis:Dropdown({
-  Title = "Selected Sprunkis",
-  Values = Settings.Sprunkis,
-  Value = Settings.Sprunkis,
-  Multi = true,
-  Callback = function(option)
-    Settings.Sprunkis = option
-  end
-})
 Tabs.Sprunkis:Toggle({
   Title = "Auto Collect",
-  Desc = "Automatically collect selected sprunkis.",
+  Desc = "Automatically collect sprunkis.",
   Value = false,
   Callback = function(state)
     getgenv().CollectSprunkis = state

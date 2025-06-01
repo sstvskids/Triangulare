@@ -84,7 +84,7 @@ local function CollectSprunkis()
   while getgenv().CollectSprunkis and task.wait(1) do
     if not eu.Character:FindFirstChild("Sprunki") and not eu.Backpack:FindFirstChild("Sprunki") then
       for _, sprunki in pairs(GetNearby()) do
-        if sprunki:IsDescendanyOf(workspace.Npcs) then
+        if sprunki:IsDescendantOf(workspace.Npcs) then
         end
       end
     end

@@ -1,5 +1,6 @@
 -- Global Values
 getgenv().AutoDirty = false
+getgenv().AutoOrder = false
 
 -- Locals
 local eu = game:GetService("Players").LocalPlayer

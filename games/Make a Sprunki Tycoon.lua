@@ -244,7 +244,7 @@ local function CollectSprunkis()
   while getgenv().CollectSprunkis and task.wait(1) do
     if not eu.Character:FindFirstChild("Sprunki") and not eu.Backpack:FindFirstChild("Sprunki") then
       for _, sprunki in pairs(GetNearby(20)) do
-        if sprunki:IsDescendantOf(workspace.Map.Tycoons[eu.Name .. "'s Tycoon"]) and sprunki.Name == "Rock Container" then
+        if not eu.Character:FindFirstChild("Sprunki") and not eu.Backpack:FindFirstChild("Sprunki") and sprunki:IsDescendantOf(workspace.Map.Tycoons[eu.Name .. "'s Tycoon"]) and sprunki.Name == "Rock Container" then
           for _, item in ipairs(Settings.Sprunkis) do
             if string.find(sprunki.PromptPart.ProximityPrompt.ActionText, item) then
               fireproximityprompt(sprunki.PromptPart.ProximityPrompt)

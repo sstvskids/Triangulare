@@ -41,6 +41,22 @@ local function AutoDeliver()
     end)
   end
 end
+-- Cook
+local function FlipBurgers()
+--[[
+workspace.OwnedRestaurants.HallowHub.Furniture.Cooktop.Cooktop:GetChildren()[11]["Raw Patty"].Flip:FlireServer()
+workspace.OwnedRestaurants.HallowHub.Furniture.Cooktop.Cooktop:GetChildren()[8]["Raw Patty"].Timer
+Occupied
+--]]
+  for _, top in pairs(workspace.OwnedRestaurants[eu.Name].Furniture.Cooktop.Cooktop:GetChildren()) do
+    pcall(function()
+      if top["Raw Patty"]:GetAttribute("Occupied") and top["Raw Patty"].Timer.Value == 100 then
+        top["Raw Patty"].Flip:FireServer()
+      end
+    end)
+  end
+end
+-- Orders
 local function CollectOrder()
   pcall(function()
     workspace.OwnedRestaurants[eu.Name].Furniture.CashRegisters.Register.TakeOrder:FireServer()
@@ -55,6 +71,7 @@ end
 -- Tabs
 local Tabs = {
   Trays = Window:Tab({ Title = "Trays", Icon = "utensils-crossed"}),
+  Cook = Window:Tab({ Title = "Cook", Icon = "hamburger"}),
   Orders = Window:Tab({ Title = "Orders", Icon = "receipt"})
 }
 Window:SelectTab(1)
@@ -80,7 +97,7 @@ Tabs.Trays:Toggle({
 Tabs.Trays:Section({ Title = "Finished Trays" })
 Tabs.Trays:Button({
   Title = "Deliver Trays",
-  Desc = "Collects all finished trays.",
+  Desc = "Deliver all finished trays.",
   Callback = function()
     DeliverTray()
   end
@@ -92,6 +109,16 @@ Tabs.Trays:Toggle({
   Callback = function(state)
     getgenv().AutoDeliver = state
     AutoDeliver()
+  end
+})
+
+-- Cook
+Tabs.Cook:Section({ Title = "Burgers" })
+Tabs.Cook:Button({
+  Title = "Flip Burgers",
+  Desc = "Automatically flips raw patties.",
+  Callback = function()
+    CollectDirty()
   end
 })
 

@@ -73,9 +73,18 @@ local function AutoBuy()
     pcall(function()
       for _, button in pairs(workspace.Map.Tycoons[eu.Name .. "'s Tycoon"]:GetChildren()) do
         pcall(function()
-        if string.find(button.Name, "Button") and button:GetAttribute("Price") <= eu.leaderstats.Money.Value then
-          firetouchinterest(eu.Character.HumanoidRootPart, button.Head, 0)
-          firetouchinterest(eu.Character.HumanoidRootPart, button.Head, 1)
+        if string.find(button.Name, "Button") then
+          if button:GetAttribute("RocksSold") then
+            if button:GetAttribute("Price") <= eu.leaderstats["Sprunki Sold"].Value then
+              firetouchinterest(eu.Character.HumanoidRootPart, button.Head, 0)
+              firetouchinterest(eu.Character.HumanoidRootPart, button.Head, 1)
+            end
+          else
+            if button:GetAttribute("Price") <= eu.leaderstats.Money.Value then
+              firetouchinterest(eu.Character.HumanoidRootPart, button.Head, 0)
+              firetouchinterest(eu.Character.HumanoidRootPart, button.Head, 1)
+            end
+          end
         end
         end)
       end

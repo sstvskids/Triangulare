@@ -2,6 +2,7 @@
 getgenv().AutoKill = false
 getgenv().AutoRevive = false
 getgenv().KillAura = false
+getgenv().AutoSkip = false
 
 -- Locals
 local eu = game:GetService("Players").LocalPlayer
@@ -43,7 +44,16 @@ local function KillAll()
 end
 local function AutoKill()
   while getgenv().AutoKill and task.wait(1) do
-    KillAll()
+    pcall(function()
+      KillAll()
+    end)
+  end
+end
+local function AutoSkip()
+  while getgenv().AutoSkip and task.wait(1) do
+    pcall(function()
+      eu.PlayerGui.HUD.RoundTimeUI.RoundTimeUI.VoteSkip:FireServer()
+    end)
   end
 end
 local function KillAura()
@@ -131,6 +141,15 @@ Tabs.BlatantTab:Button({
     for i = 1, 9 do
       game:GetService("ReplicatedStorage").PlrMan.LogQuestProgress:FireServer(i, math.huge)
     end
+  end
+})
+Tabs.BlatantTab:Toggle({
+  Title = "Auto Vote Skip",
+  Desc = "Auto votes to skip interval.",
+  Value = false,
+  Callback = function(state)
+    getgenv().AutoSkip = state
+    AutoSkip()
   end
 })
 

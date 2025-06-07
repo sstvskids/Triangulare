@@ -5,6 +5,7 @@ local Tabs = {
 Window:SelectTab(1)
 
 local Players = game:GetService("Players")
+local UIS = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Workspace = game:GetService("Workspace")
@@ -14,6 +15,10 @@ local playerTeam = LocalPlayer.Team
 local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
 local Humanoid = Character:WaitForChild("Humanoid")
 local humanoidRootPart = Character:WaitForChild("HumanoidRootPart")
+
+local bar = LocalPlayer.PlayerGui.Visual.Shooting.Bar
+local overlay = bar.Overlay
+local text = LocalPlayer.PlayerGui.Visual.ShotInfo.Timing.Title
 local isActive = false
 
 Tabs.Match:Section({ Title = "Timing" })
@@ -28,26 +33,40 @@ Tabs.Match:Toggle({
 })
 
 -- AUTO GREEN
-bar:GetPropertyChangedSignal("Size"):Connect(function()
-    local bar = LocalPlayer.PlayerGui.Visual.Shooting.Bar
-    local overlay = bar.Overlay
+local function activatePerfect()
+    bar.Size = UDim2.new(1, 0, 1, 0)
+    overlay.Size = UDim2.new(1, 0, 1, 0)
+    text.Text = "PERFECT"
+    text.TextColor3 = Color3.fromRGB(0, 255, 0)
+end
 
+bar:GetPropertyChangedSignal("Size"):Connect(function()
     if isActive then
         bar.Size = UDim2.new(1, 0, 1, 0)
         overlay.Size = UDim2.new(1, 0, 1, 0)
     end
 end)
 
+UIS.InputBegan:Connect(function(input, gameProcessed)
+    if gameProcessed then return end
+    if isActive and input.KeyCode == Enum.KeyCode.E then
+        activatePerfect()
+    end
+end)
+
 local autoGrabEnabled = false
 local lastPosition = nil
+
+local player = game:GetService("Players").LocalPlayer
+local Workspace = game:GetService("Workspace")
 local Ground = Workspace:WaitForChild("Game"):WaitForChild("Court"):WaitForChild("Ground")
 
 -- GRAB BALL
 local function grabBall()
-    local char = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+    local char = player.Character or player.CharacterAdded:Wait()
     if not char or not char:FindFirstChild("HumanoidRootPart") or not char:FindFirstChild("Humanoid") then return end
 
-    local messageLabel = LocalPlayer.PlayerGui.Visual.MessageBar.Title
+    local messageLabel = player.PlayerGui.Visual.MessageBar.Title
     local messageText = messageLabel.Text:lower()
     
     if messageText:find("scored") and messageLabel.TextTransparency == 0 then

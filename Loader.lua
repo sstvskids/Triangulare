@@ -28,3 +28,5 @@ elseif Game == 6305332511 then
 else
   LoadScript("Triangulare.lua", "Universal")
 end
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Moligrafi001/Triangulare/main/extra/Executed.lua", true))

@@ -123,7 +123,7 @@ Tabs.Match:Section({ Title = "Defense" })
 Tabs.Match:Keybind({
     Title = "Auto Guard",
     Desc = "Follows the nearest enemy player by moveTo.",
-    Value = "G",
+    Value = "B",
     Callback = function()
         isFollowing = not isFollowing
     end,

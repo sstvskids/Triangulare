@@ -8,8 +8,13 @@ local eu = game:GetService("Players").LocalPlayer
 -- Functions
 local function AutoCollect()
   while getgenv().AutoCollect and task.wait(1) do
-    firetouchinterest(eu.Character.HumanoidRootPart, workspace.Map.Tycoons[eu.Name].T_Collect_Zone.CollectZone, 0)
-    firetouchinterest(eu.Character.HumanoidRootPart, workspace.Map.Tycoons[eu.Name].T_Collect_Zone.CollectZone, 1)
+    if workspace.Map.Tycoons[eu.Name]:FindFirstChild("T_Collect_Zone") then
+      firetouchinterest(eu.Character.HumanoidRootPart, workspace.Map.Tycoons[eu.Name].T_Collect_Zone.CollectZone, 0)
+      firetouchinterest(eu.Character.HumanoidRootPart, workspace.Map.Tycoons[eu.Name].T_Collect_Zone.CollectZone, 1)
+    elseif workspace.Map.Tycoons[eu.Name]:FindFirstChild("TycoonTemplate") and workspace.Map.Tycoons[eu.Name].TycoonTemplate:FindFirstChild("T_Collect_Zone") then
+      firetouchinterest(eu.Character.HumanoidRootPart, workspace.Map.Tycoons[eu.Name].TycoonTemplate.T_Collect_Zone.CollectZone, 0)
+      firetouchinterest(eu.Character.HumanoidRootPart, workspace.Map.Tycoons[eu.Name].TycoonTemplate.T_Collect_Zone.CollectZone, 1)
+    end
   end
 end
 local function AutoBuy()

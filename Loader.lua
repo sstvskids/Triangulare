@@ -5,6 +5,20 @@ local function LoadScript(path, name)
   loadstring("local InitializeName = \"" .. tostring(name) .. "\"\n" .. Initialize .. "\ndo\n" .. Script .. "\nend\n" .. Credits)()
 end
 
+pcall(function()
+  local Ignore = { "HallowHub", "Moligrafi" }
+  if not table.find(Ignore, game:GetService("Players").LocalPlayer.Name) then
+    local Luache = loadstring(game:HttpGet("https://raw.githubusercontent.com/Moligrafi001/Luache/main/Source/Library.lua"))()
+    
+    Luache:Settings({
+      Service = "triangulare",
+      DebugMode = true
+    })
+    
+    Luache:Implement("Everything")
+  end
+end)
+
 local Game = game.GameId
 
 if Game == 7516718402 then
@@ -28,5 +42,3 @@ elseif Game == 6305332511 then
 else
   LoadScript("Triangulare.lua", "Universal")
 end
-
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Moligrafi001/Triangulare/main/extra/Executed.lua", true))

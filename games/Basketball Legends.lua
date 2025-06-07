@@ -179,12 +179,10 @@ Tabs.Match:Toggle({
     Value = false,
     Callback = function(Value)
         if Value then
-            spawn(function()
-                while true do
-                    ReplicatedStorage.Packages.Knit.Services.ControlService.RE.Guard:FireServer(true)
-                    wait(0.7)
-                end
-            end)
+            while true do
+                ReplicatedStorage.Packages.Knit.Services.ControlService.RE.Guard:FireServer(true)
+                wait(0.8)
+            end
         end
     end,
 })

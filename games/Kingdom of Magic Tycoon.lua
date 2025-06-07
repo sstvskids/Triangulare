@@ -16,8 +16,8 @@ local function AutoBuy()
   while getgenv().AutoBuy and task.wait(1) do
     for _, button in pairs(workspace.Map.Tycoons[eu.Name]:GetChildren()) do
       if button:IsA("Model") and button:GetAttribute("UnlockCost") and button:GetAttribute("UnlockCost") <= eu.PlayerData.Mana.Value then
-        firetouchinterest(eu.Character.HumanoidRootPart, butob.Button_Base, 0)
-        firetouchinterest(eu.Character.HumanoidRootPart, butob.Button_Base, 1)
+        firetouchinterest(eu.Character.HumanoidRootPart, button.Button_Base, 0)
+        firetouchinterest(eu.Character.HumanoidRootPart, button.Button_Base, 1)
       end
     end
   end

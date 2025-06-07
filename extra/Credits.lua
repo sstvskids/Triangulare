@@ -15,7 +15,8 @@ local function SupportedList(type)
     ["Make a Sprunki Tycoon!"] = 71508074112900,
     ["Fast Food Simulator"] = 119055906651998,
     ["Basketball Legends"] = 14259168147,
-    ["Saber Showdown"] = 12625784503
+    ["Saber Showdown"] = 12625784503,
+    ["Kingdom of Magic Tycoon"] = 18608175830
   }
   if type == "Names" then
     local Names = {}

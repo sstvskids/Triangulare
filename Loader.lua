@@ -19,8 +19,6 @@ elseif Game == 7606156849 then
   LoadScript("games/Make a Sprunki Tycoon.lua", "Make a Sprunki Tycoon!")
 elseif Game == 7118588325 then
   LoadScript("games/Fast Food Simulator.lua", "Fast Food Simulator")
-elseif Game == 504035427 then
-  LoadScript("games/Zombie Attack.lua", "Zombie Attack")
 else
   LoadScript("Triangulare.lua", "Universal")
 end

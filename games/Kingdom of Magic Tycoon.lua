@@ -37,7 +37,7 @@ local Tabs = {
 Window:SelectTab(1)
 
 -- Menu
-Tabs.Menu:Section({ Title = "Helpfual" })
+Tabs.Menu:Section({ Title = "Hellpful" })
 Tabs.Menu:Toggle({
   Title = "Auto Collect Mana",
   Desc = "Automatically collect mana.",

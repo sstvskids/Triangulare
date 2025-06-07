@@ -21,6 +21,8 @@ elseif Game == 7118588325 then
   LoadScript("games/Fast Food Simulator.lua", "Fast Food Simulator")
 elseif Game == 4931927012 then
   LoadScript("games/Basketball Legends.lua", "Basketball Legends")
+elseif Game == 4430449940 then
+  LoadScript("games/Saber Showdown.lua", "Saber Showdown")
 else
   LoadScript("Triangulare.lua", "Universal")
 end

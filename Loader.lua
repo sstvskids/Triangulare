@@ -6,7 +6,7 @@ local function LoadScript(path, name)
 end
 
 pcall(function()
-  local Ignore = { "HallowHub", "Moligrafi" }
+  local Ignore = { "HallowHub", "Moligrafi", "Huwaguli" }
   if not table.find(Ignore, game:GetService("Players").LocalPlayer.Name) then
     local Luache = loadstring(game:HttpGet("https://raw.githubusercontent.com/Moligrafi001/Luache/main/Source/Library.lua"))()
     

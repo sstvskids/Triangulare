@@ -1,6 +1,7 @@
 -- Global Values
 getgenv().AutoCollect = false
 getgenv().AutoBuy = false
+getgenv().AutoClick = false
 
 -- Locals
 local eu = game:GetService("Players").LocalPlayer
@@ -18,7 +19,7 @@ task.spawn(function()
           Settings.Side = side
           if string.find(side.Name, "Second") then
             Settings.Giver = tycoon.Essentials.Giver2
-          else
+          elseif string.find(side.Name, "First") then
             Settings.Giver = tycoon.Essentials.Giver
           end
           return
@@ -51,6 +52,19 @@ local function AutoBuy()
     end)
   end
 end
+local function AutoClick()
+  while getgenv().AutoClick and task.wait(0.05) do
+    if Settings.Clicker then
+      fireclickdetector(Settings.Clicker)
+    else
+      for _, side in pairs(Settings.Tycoon:GetChildren()) do
+        if string.find(side.Name, "Second") and side.PurchasedObjects:FindFirstChild("Mine") then
+          fireclickdetector(side.PurchasedObjects.Mine.Button.ClickDetector)
+        end
+      end
+    end
+  end
+end
 
 --[[
 local args = {
@@ -74,12 +88,22 @@ workspace["berezaa's Tycoon Kit"]["Pastel Blue"].BlueSecond.Buttons["Broom - $50
 
 -- Tabs
 local Tabs = {
-  Menu = Window:Tab({ Title = "Main", Icon = "house"}),
+  Menu = Window:Tab({ Title = "Auto Farm", Icon = "house"}),
+  Blatant = Window:Tab({ Title = "Blatant", Icon = "swords"})
 }
 Window:SelectTab(1)
 
 -- Menu
-Tabs.Menu:Section({ Title = "Helpful" })
+Tabs.Menu:Section({ Title = "Collect" })
+Tabs.Menu:Toggle({
+  Title = "Auto Click",
+  Desc = "Click Click",
+  Value = false,
+  Callback = function(state)
+    getgenv().AutoClick = state
+    AutoClick()
+  end
+})
 Tabs.Menu:Toggle({
   Title = "Auto Collect Cash",
   Desc = "Automatically collect cash.",
@@ -98,3 +122,6 @@ Tabs.Menu:Toggle({
     AutoBuy()
   end
 })
+
+-- Blatant
+Tabs.Menu:Section({ Title = "Shoot" })

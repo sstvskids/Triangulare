@@ -2,7 +2,6 @@
 getgenv().AutoCollect = false
 getgenv().AutoBuy = false
 getgenv().AutoClick = false
-getgenv().AutoShoot = false
 
 -- Locals
 local eu = game:GetService("Players").LocalPlayer

@@ -16,7 +16,7 @@ task.spawn(function()
         if side:FindFirstChild("Owner") and side.Owner.Value == eu then
           Settings.Tycoon = tycoon
           Settings.Side = side
-          if string.find("Second", side.Name) then
+          if string.find(side.Name, "Second") then
             Settings.Giver = tycoon.Essentials.Giver2
           else
             Settings.Giver = tycoon.Essentials.Giver

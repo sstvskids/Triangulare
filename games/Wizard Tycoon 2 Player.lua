@@ -125,4 +125,4 @@ Tabs.Menu:Toggle({
 })
 
 -- Blatant
-Tabs.Menu:Section({ Title = "Shoot" })
+Tabs.Blatant:Section({ Title = "Shoot" })

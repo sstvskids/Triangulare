@@ -16,10 +16,10 @@ task.spawn(function()
         if side:FindFirstChild("Owner") and side.Owner.Value == eu then
           Settings.Tycoon = tycoon
           Settings.Side = side
-          if string.find("Second", Settings.Side.Name) then
-            Settings.Giver = tycoon.Giver2
+          if string.find("Second", side.Name) then
+            Settings.Giver = tycoon.Essentials.Giver2
           else
-            Settings.Giver = tycoon.Giver
+            Settings.Giver = tycoon.Essentials.Giver
           end
           return
         end
@@ -38,12 +38,17 @@ local function AutoCollect()
 end
 local function AutoBuy()
   while getgenv().AutoBuy and task.wait(1) do
-    for _, button in pairs(Settings.Side.Buttons:GetChildren()) do
-      if button.Head.Transparency == 0 and button.Price.Value <= eu.leaderstats.Cash.Value then
-        firetouchinterest(eu.Character.HumanoidRootPart, button.Head, 0)
-        firetouchinterest(eu.Character.HumanoidRootPart, button.Head, 1)
+    pcall(function()
+      for _, button in pairs(Settings.Side.Buttons:GetChildren()) do
+        pcall(function()
+          if button.Head.Transparency == 0 and button.Price.Value <= eu.leaderstats.Cash.Value then
+            firetouchinterest(eu.Character.HumanoidRootPart, button.Head, 0)
+            firetouchinterest(eu.Character.HumanoidRootPart, button.Head, 1)
+            task.wait(0.39)
+          end
+        end)
       end
-    end
+    end)
   end
 end
 
@@ -76,8 +81,8 @@ Window:SelectTab(1)
 -- Menu
 Tabs.Menu:Section({ Title = "Helpful" })
 Tabs.Menu:Toggle({
-  Title = "Auto Collect Mana",
-  Desc = "Automatically collect mana.",
+  Title = "Auto Collect Cash",
+  Desc = "Automatically collect cash.",
   Value = false,
   Callback = function(state)
     getgenv().AutoCollect = state

@@ -56,38 +56,20 @@ local function AutoBuy()
 end
 local function AutoClick()
   while getgenv().AutoClick and task.wait(0.05) do
-    if Settings.Clicker then
-      fireclickdetector(Settings.Clicker)
-    else
-      for _, side in pairs(Settings.Tycoon:GetChildren()) do
-        if string.find(side.Name, "Second") and side.PurchasedObjects:FindFirstChild("Mine") then
-          fireclickdetector(side.PurchasedObjects.Mine.Button.ClickDetector)
-          Settings.Clicker = side.PurchasedObjects.Mine.Button.ClickDetector
+    pcall(function()
+      if Settings.Clicker then
+        fireclickdetector(Settings.Clicker)
+      else
+        for _, side in pairs(Settings.Tycoon:GetChildren()) do
+          pcall(function()
+            if string.find(side.Name, "Second") and side.PurchasedObjects:FindFirstChild("Mine") then
+              fireclickdetector(side.PurchasedObjects.Mine.Button.ClickDetector)
+              Settings.Clicker = side.PurchasedObjects.Mine.Button.ClickDetector
+            end
+          end)
         end
       end
-    end
-  end
-end
-local function ShootAll()
-  for _, player in pairs(game:GetService("Players"):GetPlayers()) do
-    if player ~= eu then
-      local pos = player.Character.HumanoidRootPart.CFrame.Position
-      local args = {
-          [1] = CFrame.new(pos.X, pos.Y, pos.Z) * CFrame.Angles(-3.130964517593384, 0.7702462077140808, 3.1341919898986816),
-          [2] = 100,
-          [3] = 1.5,
-          [4] = eu.Character.Wand,
-          [5] = 15,
-          [6] = eu.Character
-      }
-      
-      eu.Character.Wand.Fire:FireServer(unpack(args))
-    end
-  end
-end
-local function AutoShoot()
-  while getgenv().AutoShoot and task.wait(0.09) do
-    ShootAll()
+    end)
   end
 end
 
@@ -113,8 +95,7 @@ workspace["berezaa's Tycoon Kit"]["Pastel Blue"].BlueSecond.Buttons["Broom - $50
 
 -- Tabs
 local Tabs = {
-  Menu = Window:Tab({ Title = "Auto Farm", Icon = "house"}),
-  Blatant = Window:Tab({ Title = "Blatant", Icon = "swords"})
+  Menu = Window:Tab({ Title = "Auto Farm", Icon = "house"})
 }
 Window:SelectTab(1)
 
@@ -145,24 +126,5 @@ Tabs.Menu:Toggle({
   Callback = function(state)
     getgenv().AutoBuy = state
     AutoBuy()
-  end
-})
-
--- Blatant
-Tabs.Blatant:Section({ Title = "Shoot" })
-Tabs.Blatant:Button({
-  Title = "Shoot Everyone",
-  Desc = "Shoot every player alive.",
-  Callback = function()
-    ShootAll()
-  end
-})
-Tabs.Blatant:Toggle({
-  Title = "Auto Shoot",
-  Desc = "Automatically shoot all.",
-  Value = false,
-  Callback = function(state)
-    getgenv().AutoShoot = state
-    AutoShoot()
   end
 })

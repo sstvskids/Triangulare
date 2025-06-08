@@ -60,6 +60,7 @@ local function AutoClick()
       for _, side in pairs(Settings.Tycoon:GetChildren()) do
         if string.find(side.Name, "Second") and side.PurchasedObjects:FindFirstChild("Mine") then
           fireclickdetector(side.PurchasedObjects.Mine.Button.ClickDetector)
+          Settings.Clicker = side.PurchasedObjects.Mine.Button.ClickDetector
         end
       end
     end

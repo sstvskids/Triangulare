@@ -81,7 +81,7 @@ local function ShootAll()
           [6] = eu.Character
       }
       
-      eu.Wand.Fire:FireServer(unpack(args))
+      eu.Character.Wand.Fire:FireServer(unpack(args))
     end
   end
 end

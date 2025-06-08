@@ -2,6 +2,7 @@
 getgenv().AutoCollect = false
 getgenv().AutoBuy = false
 getgenv().AutoClick = false
+getgenv().AutoShoot = false
 
 -- Locals
 local eu = game:GetService("Players").LocalPlayer
@@ -29,6 +30,7 @@ task.spawn(function()
   end
 end)
 
+-- Functions
 local function AutoCollect()
   while getgenv().AutoCollect and task.wait(1) do
     pcall(function()
@@ -64,6 +66,28 @@ local function AutoClick()
         end
       end
     end
+  end
+end
+local function ShootAll()
+  for _, player in pairs(game:GetService("Players"):GetPlayers()) do
+    if player ~= eu then
+      local pos = player.Character.HumanoidRootPart.CFrame.Position
+      local args = {
+          [1] = CFrame.new(pos.X, pos.Y, pos.Z) * CFrame.Angles(-3.130964517593384, 0.7702462077140808, 3.1341919898986816),
+          [2] = 100,
+          [3] = 1.5,
+          [4] = eu.Character.Wand,
+          [5] = 15,
+          [6] = eu.Character
+      }
+      
+      eu.Wand.Fire:FireServer(unpack(args))
+    end
+  end
+end
+local function AutoShoot()
+  while getgenv().AutoShoot and task.wait(0.09) do
+    ShootAll()
   end
 end
 
@@ -126,3 +150,19 @@ Tabs.Menu:Toggle({
 
 -- Blatant
 Tabs.Blatant:Section({ Title = "Shoot" })
+Tabs.Blatant:Button({
+  Title = "Shoot Everyone",
+  Desc = "Shoot every player alive.",
+  Callback = function()
+    ShootAll()
+  end
+})
+Tabs.Blatant:Toggle({
+  Title = "Auto Shoot",
+  Desc = "Automatically shoot all.",
+  Value = false,
+  Callback = function(state)
+    getgenv().AutoShoot = state
+    AutoShoot()
+  end
+})

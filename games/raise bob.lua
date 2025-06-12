@@ -13,7 +13,7 @@ task.spawn(function()
     pcall(function()
       for _, bomb in pairs(workspace.Utilities.Bombs:GetChildren()) do
         pcall(function()
-          if bomb:FindFirstChild("Model") and bomb.Model:FindFirstChild("Head") then
+          if not table.find(Settings.Bombs, bomb) and bomb:FindFirstChild("Model") and bomb.Model:FindFirstChild("Head") then
             table.insert(Settings.Bombs, bomb)
           end
         end)

@@ -43,6 +43,8 @@ elseif Game == 110988953 then
   LoadScript("games/Wizard Tycoon 2 Player.lua", "Wizard Tycoon - 2 Player")
 elseif Game == 66654135 then
   LoadScript("games/Murder Mystery 2.lua", "Murder Mystery 2")
+elseif Game == 6516536612 then
+  LoadScript("games/raise bob.lua", "raise bob")
 else
   LoadScript("Triangulare.lua", "Universal")
 end

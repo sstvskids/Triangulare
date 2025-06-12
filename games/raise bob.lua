@@ -6,7 +6,7 @@ getgenv().NoPoop = false
 -- Locals
 local eu = game:GetService("Players").LocalPlayer
 local Settings = {
-  Bombs = nil
+  Bombs = {}
 }
 task.spawn(function()
   while task.wait(1) do

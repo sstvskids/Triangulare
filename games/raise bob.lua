@@ -94,7 +94,7 @@ Tabs.Menu:Toggle({
   Value = false,
   Callback = function(state)
     getgenv().AutoCollect = state
-    if getgenv().AutoClick then pcall(AutoCollect) end
+    if getgenv().AutoCollect then pcall(AutoCollect) end
   end
 })
 Tabs.Menu:Toggle({

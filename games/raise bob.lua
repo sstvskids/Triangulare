@@ -85,7 +85,7 @@ Tabs.Menu:Toggle({
   Value = false,
   Callback = function(state)
     getgenv().AutoClick = state
-    AutoClick()
+    if getgenv().AutoClick then pcall(AutoClick) end
   end
 })
 Tabs.Menu:Toggle({
@@ -94,6 +94,15 @@ Tabs.Menu:Toggle({
   Value = false,
   Callback = function(state)
     getgenv().AutoCollect = state
-    AutoCollect()
+    if getgenv().AutoClick then pcall(AutoCollect) end
+  end
+})
+Tabs.Menu:Toggle({
+  Title = "Auto Clean Poop",
+  Desc = "No Poop.",
+  Value = false,
+  Callback = function(state)
+    getgenv().NoPoop = state
+    if getgenv().NoPoop then pcall(NoPoop) end
   end
 })

@@ -1,7 +1,6 @@
 -- Global Values
 getgenv().AutoClick = false
 getgenv().AutoCollect = false
-getgenv().NoPoop = false
 
 -- Locals
 local eu = game:GetService("Players").LocalPlayer
@@ -50,20 +49,6 @@ local function AutoCollect()
     end)
   end
 end
-local function NoPoop()
-  for _, poop in pairs(workspace.Utilities.Poop:GetChildren()) do
-    pcall(function()
-      fireproximityprompt(poop.ProximityPrompt)
-    end)
-  end
-  if not workspace.Utilities.Poop:GetAttribute("Connected") then
-    workspace.Utilities.Poop:SetAttribute("Connected", true)
-    workspace.Utilities.Poop.ChildAdded:Connect(function(instance)
-      if not getgenv().NoPoop then return end
-      fireproximityprompt(instance.ProximityPrompt)
-    end)
-  end
-end
 
 --[[
 workspace.Utilities.Cash.Cash.TouchInterest
@@ -95,14 +80,5 @@ Tabs.Menu:Toggle({
   Callback = function(state)
     getgenv().AutoCollect = state
     if getgenv().AutoCollect then pcall(AutoCollect) end
-  end
-})
-Tabs.Menu:Toggle({
-  Title = "Auto Clean Poop",
-  Desc = "No Poop.",
-  Value = false,
-  Callback = function(state)
-    getgenv().NoPoop = state
-    if getgenv().NoPoop then pcall(NoPoop) end
   end
 })

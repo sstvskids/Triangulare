@@ -2,6 +2,7 @@
 getgenv().AutoCollect = false
 getgenv().AutoDeliver = false
 getgenv().AutoLock = false
+getgenv().AntiLasers = false
 
 -- Locals
 local eu = game:GetService("Players").LocalPlayer
@@ -68,6 +69,40 @@ local function AutoLock()
     end)
   end
 end
+local function AntiLasers()
+  local function SetLaser(path, boolean)
+    for _, obj in pairs(path:GetDescendants()) do
+      if obj:IsA("BasePart") then
+        obj.CanTouch = boolean
+        obj.CanCollide = boolean
+      end
+    end
+  end
+  while getgenv().AntiLasers and task.wait(1) do
+    for _, plot in pairs(workspace.Plots:GetChildren()) do
+      if not plot:GetAttribute("AntiLasers") then
+        plot:SetAttribute("AntiLasers", true)
+        plot.plot_model.ChildAdded:Connect(function(obj)
+          if getgenv().AntiLasers and obj.Name == "lasers" then
+            SetLaser(obj, false)
+          end
+        end)
+      end
+      local lasers = plot.plot_model:FindFirstChild("lasers")
+      if lasers then
+        SetLaser(lasers, false)
+      end
+    end
+  end
+  if not getgenv().AntiLasers then
+    for _, plot in pairs(workspace.Plots:GetChildren()) do
+      local lasers = plot.plot_model:FindFirstChild("lasers")
+      if lasers then
+        SetLaser(lasers, true)
+      end
+    end
+  end
+end
 
 --[[
 game:GetService("Players").LocalPlayer.leaderstats.Cash
@@ -113,5 +148,14 @@ Tabs.Menu:Toggle({
   Callback = function(state)
     getgenv().AutoDeliver = state
     AutoDeliver()
+  end
+})
+Tabs.Menu:Toggle({
+  Title = "Anti Lasers",
+  Desc = "Disable the dangerous lasers.",
+  Value = false,
+  Callback = function(state)
+    getgenv().AntiLasers = state
+    AntiLasers()
   end
 })

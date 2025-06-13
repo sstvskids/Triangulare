@@ -47,7 +47,7 @@ end
 local function AutoLock()
   while getgenv().AutoLock and task.wait(0.39) do
     pcall(function()
-      if Settings.Plot.plot_model.lasers.Laser_Bot.Transparency == 1 and eu.leaderstats.Cash.Value >= 30000 then
+      if not Settings.Plot.plot_model:FindFirstChild("lasers") and eu.leaderstats.Cash.Value >= 30000 then
         firetouchinterest(eu.Character.HumanoidRootPart, Settings.Plot.plot_model.touches.Lock1m_touch, 0)
         firetouchinterest(eu.Character.HumanoidRootPart, Settings.Plot.plot_model.touches.Lock1m_touch, 1)
       end

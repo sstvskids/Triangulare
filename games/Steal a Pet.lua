@@ -11,10 +11,12 @@ local Settings = {
 
 -- Load
 task.spawn(function()
-  for _, plot in pairs(workspace.Plots:GetChildren()) do
-    if plot:FindFirstChild("owner") and plot.owner.Value == eu then
-      Settings.Plot = plot
-      return
+  while not Settings.Plot and task.wait(1) do
+    for _, plot in pairs(workspace.Plots:GetChildren()) do
+      if plot:FindFirstChild("owner") and plot.owner.Value == eu then
+        Settings.Plot = plot
+        return
+      end
     end
   end
 end)

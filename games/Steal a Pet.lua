@@ -45,11 +45,25 @@ local function AutoDeliver()
   end
 end
 local function AutoLock()
+  local function Lock()
+    if eu.leaderstats.Cash.Value >= 30000 then
+      firetouchinterest(eu.Character.HumanoidRootPart, Settings.Plot.plot_model.touches.Lock1m_touch, 0)
+      firetouchinterest(eu.Character.HumanoidRootPart, Settings.Plot.plot_model.touches.Lock1m_touch, 1)
+    end
+  end
   while getgenv().AutoLock and task.wait(0.39) do
     pcall(function()
-      if not Settings.Plot.plot_model:FindFirstChild("lasers") and eu.leaderstats.Cash.Value >= 30000 then
-        firetouchinterest(eu.Character.HumanoidRootPart, Settings.Plot.plot_model.touches.Lock1m_touch, 0)
-        firetouchinterest(eu.Character.HumanoidRootPart, Settings.Plot.plot_model.touches.Lock1m_touch, 1)
+      if not Settings.Plot.plot_model:GetAttribute("Connected") then
+        Settings.Plot.plot_model:SetAttribute("Connected", true)
+        Settings.Plot.plot_model.ChildRemoved:Connect(function()
+          if not Settings.Plot.plot_model:FindFirstChild("lasers") then
+            Lock()
+          end
+        end)
+      end
+      
+      if not Settings.Plot.plot_model:FindFirstChild("lasers") then
+        Lock()
       end
     end)
   end

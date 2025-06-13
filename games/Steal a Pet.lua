@@ -79,27 +79,35 @@ local function AntiLasers()
     end
   end
   while getgenv().AntiLasers and task.wait(1) do
-    for _, plot in pairs(workspace.Plots:GetChildren()) do
-      if not plot:GetAttribute("AntiLasers") then
-        plot:SetAttribute("AntiLasers", true)
-        plot.plot_model.ChildAdded:Connect(function(obj)
-          if getgenv().AntiLasers and obj.Name == "lasers" then
-            SetLaser(obj, false)
+    pcall(function()
+      for _, plot in pairs(workspace.Plots:GetChildren()) do
+      pcall(function()
+        if plot.owner.Value ~= eu then
+          if not plot:GetAttribute("AntiLasers") then
+            plot:SetAttribute("AntiLasers", true)
+            plot.plot_model.ChildAdded:Connect(function(obj)
+              if getgenv().AntiLasers and obj.Name == "lasers" then
+                SetLaser(obj, false)
+              end
+            end)
           end
-        end)
+          if plot.plot_model:FindFirstChild("lasers") then
+            SetLaser(plot.plot_model:FindFirstChild("lasers"), false)
+          end
+        end
+       end)
       end
-      local lasers = plot.plot_model:FindFirstChild("lasers")
-      if lasers then
-        SetLaser(lasers, false)
-      end
-    end
+    end)
   end
   if not getgenv().AntiLasers then
     for _, plot in pairs(workspace.Plots:GetChildren()) do
-      local lasers = plot.plot_model:FindFirstChild("lasers")
-      if lasers then
-        SetLaser(lasers, true)
-      end
+      pcall(function()
+        if plot.owner.Value ~= eu then
+          if plot.plot_model:FindFirstChild("lasers") then
+            SetLaser(plot.plot_model:FindFirstChild("lasers"), true)
+          end
+        end
+      end)
     end
   end
 end

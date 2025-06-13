@@ -1,6 +1,7 @@
 -- Global Values
 getgenv().AutoCollect = false
 getgenv().AutoDeliver = false
+getgenv().AutoLock = false
 
 -- Locals
 local eu = game:GetService("Players").LocalPlayer
@@ -41,6 +42,16 @@ local function AutoDeliver()
     end)
   end
 end
+local function AutoLock()
+  while getgenv().AutoLock and task.wait(0.39) do
+    pcall(function()
+      if Settings.Plot.plot_model.lasers.Laser_Bot.Transparency == 1 and eu.leaderstats.Cash.Value >= 30000 then
+        firetouchinterest(eu.Character.HumanoidRootPart, Settings.Plot.plot_model.touches.Lock1m_touch, 0)
+        firetouchinterest(eu.Character.HumanoidRootPart, Settings.Plot.plot_model.touches.Lock1m_touch, 1)
+      end
+    end)
+  end
+end
 
 --[[
 game:GetService("Players").LocalPlayer.leaderstats.Cash
@@ -48,6 +59,8 @@ workspace.Plots:GetChildren()[7].plot_model.pet_slots["1"].main.to_collect.Value
 workspace.Plots:GetChildren()[7].plot_model.pet_slots["1"].main.collect_touch
 workspace.Plots:GetChildren()[7].owner
 workspace.Plots:GetChildren()[7].plot_model.safe_zone.zone.TouchInterest
+workspace.Plots:GetChildren()[3].plot_model.touches.Lock1m_touch.TouchInterest
+workspace.Plots:GetChildren()[3].plot_model.lasers.Laser_Bot
 7713074498/106848621211283
 --]]
 
@@ -60,12 +73,21 @@ Window:SelectTab(1)
 -- Menu
 Tabs.Menu:Section({ Title = "Helpful" })
 Tabs.Menu:Toggle({
-  Title = "Auto Collect Cash",
-  Desc = "Automatically collect cash.",
+  Title = "Auto Collect",
+  Desc = "Automatically collects cash.",
   Value = false,
   Callback = function(state)
     getgenv().AutoCollect = state
     AutoCollect()
+  end
+})
+Tabs.Menu:Toggle({
+  Title = "Auto Lock",
+  Desc = "Automatically locks your plot.",
+  Value = false,
+  Callback = function(state)
+    getgenv().AutoLock = state
+    AutoLock()
   end
 })
 Tabs.Menu:Toggle({

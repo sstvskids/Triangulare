@@ -56,7 +56,7 @@ local function AutoLock()
       if not Settings.Plot.plot_model:GetAttribute("Connected") then
         Settings.Plot.plot_model:SetAttribute("Connected", true)
         Settings.Plot.plot_model.ChildRemoved:Connect(function()
-          if not Settings.Plot.plot_model:FindFirstChild("lasers") then
+          if getgenv().AutoLock and not Settings.Plot.plot_model:FindFirstChild("lasers") then
             Lock()
           end
         end)

@@ -29,7 +29,9 @@ local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local RunService = game:GetService("RunService")
 local UIS = game:GetService("UserInputService")
-local ts = game:GetService("TweenService")
+local TweenService = game:GetService("TweenService")
+local StarterGui = game:GetService("StarterGui")
+local Workspace = game:GetService("Workspace")
 local localPlayer = Players.LocalPlayer
 local camera = workspace.CurrentCamera
 
@@ -460,7 +462,7 @@ local function teleportToMurderer()
     local myHRP = myChar:FindFirstChild("HumanoidRootPart")
     if not myHRP then return false end
     
-    myHRP.CFrame = targetHRP.CFrame * CFrame.new(0, 0, 3)
+    myHRP.CFrame = targetHRP.CFrame * CFrame.new(0, 0, 5)
     return true
 end
 
@@ -872,25 +874,346 @@ Tabs.Auto:Section({ Title = "Auto Farm" })
 
 --// AUTO FARM \\--
 
-Tabs.Auto:Toggle({
-	Title = "Auto Farm (SOON)",
-	Desc = "Automatically farming coins around the map",
-	Default = false,
-	Callback = function(state)
+getgenv().coinAutoFarm = false
+getgenv().tweenSpeed = 0.5
+getgenv().activeTween = nil
 
-	end
+local function getClosestCoin()
+    local closest, closestDist = nil, math.huge
+    local hrp = localPlayer.Character and localPlayer.Character:FindFirstChild("HumanoidRootPart")
+    if not hrp then return nil end
+
+    local coinContainer = nil
+
+    for _, obj in ipairs(Workspace:GetChildren()) do
+        if obj:IsA("Model") and obj:FindFirstChild("CoinContainer") then
+            coinContainer = obj:FindFirstChild("CoinContainer")
+            break
+        end
+    end
+
+    if not coinContainer then return nil end
+
+    for _, child in ipairs(coinContainer:GetChildren()) do
+        if child:IsA("Part") and child.Name == "Coin_Server" and child:FindFirstChild("TouchInterest") then
+            local dist = (hrp.Position - child.Position).Magnitude
+            if dist < closestDist then
+                closest = child
+                closestDist = dist
+            end
+        elseif child:IsA("Model") then
+            for _, inner in ipairs(child:GetChildren()) do
+                if inner:IsA("Part") and inner.Name == "Coin_Server" and inner:FindFirstChild("TouchInterest") then
+                    local dist = (hrp.Position - inner.Position).Magnitude
+                    if dist < closestDist then
+                        closest = inner
+                        closestDist = dist
+                    end
+                end
+            end
+        end
+    end
+
+    return closest
+end
+
+local function enableNoClip()
+    local noclipConnection
+    noclipConnection = RunService.Stepped:Connect(function()
+        if not getgenv().coinAutoFarm then
+            noclipConnection:Disconnect()
+            return
+        end
+        
+        if localPlayer.Character then
+            for _, part in pairs(localPlayer.Character:GetDescendants()) do
+                if part:IsA("BasePart") then
+                    part.CanCollide = false
+                end
+            end
+        end
+    end)
+    
+    return noclipConnection
+end
+
+local function tweenToPosition(position)
+    if getgenv().activeTween then
+        getgenv().activeTween:Cancel()
+        getgenv().activeTween = nil
+    end
+
+    local character = localPlayer.Character
+    if not character then return end
+
+    local humanoid = character:FindFirstChildOfClass("Humanoid")
+    if not humanoid then return end
+
+    local hrp = character:FindFirstChild("HumanoidRootPart")
+    if not hrp then return end
+
+    Workspace.CurrentCamera.CameraSubject = humanoid
+
+    local distance = (hrp.Position - position).Magnitude
+    local duration = distance / (getgenv().tweenSpeed * 50)
+
+    local tweenInfo = TweenInfo.new(
+        duration,
+        Enum.EasingStyle.Linear,
+        Enum.EasingDirection.Out,
+        0,
+        false,
+        0
+    )
+
+	local targetPosition = Vector3.new(position.X, position.Y - 3, position.Z)
+
+    local tween = TweenService:Create(hrp, tweenInfo, {CFrame = CFrame.new(targetPosition)})
+    getgenv().activeTween = tween
+    tween:Play()
+    
+    local success, error = pcall(function()
+        tween.Completed:Wait()
+    end)
+    
+    if not success then
+        warn("Tween error: " .. error)
+    end
+    
+    getgenv().activeTween = nil
+end
+
+local function autoFarmCoins()
+    local noclipConnection = enableNoClip()
+    
+    while getgenv().coinAutoFarm and localPlayer.Character do
+        local coinGui = localPlayer:FindFirstChild("PlayerGui")
+        if coinGui then
+            coinGui = coinGui:FindFirstChild("MainGUI")
+            if coinGui then
+                coinGui = coinGui:FindFirstChild("Game")
+                if coinGui then
+                    coinGui = coinGui:FindFirstChild("CoinBags")
+                    if coinGui then
+                        coinGui = coinGui:FindFirstChild("Container")
+                        if coinGui then
+                            coinGui = coinGui:FindFirstChild("Coin")
+                            if coinGui then
+                                coinGui = coinGui:FindFirstChild("Full")
+                                if coinGui and coinGui.Visible then
+                                    localPlayer.Character:BreakJoints()
+                                    break
+                                end
+                            end
+                        end
+                    end
+                end
+            end
+        end
+
+        local targetCoin = getClosestCoin()
+        if targetCoin then
+            tweenToPosition(targetCoin.Position)
+            task.wait(0.2)
+            if targetCoin and targetCoin.Parent then
+                targetCoin:Destroy()
+            end
+			task.wait(0.5)
+        else
+            task.wait(0.5)
+        end
+    end
+    
+    if noclipConnection then
+        noclipConnection:Disconnect()
+    end
+end
+
+Tabs.Auto:Toggle({
+    Title = "Auto Farm",
+    Desc = "Automatically farming coins around the map",
+    Default = false,
+    Callback = function(state)
+        getgenv().coinAutoFarm = state
+        if state then
+            task.spawn(autoFarmCoins)
+        else
+            if getgenv().activeTween then
+                getgenv().activeTween:Cancel()
+                getgenv().activeTween = nil
+            end
+        end
+    end
 })
 
 Tabs.Auto:Slider({
-	Title = "Tween Speed",
-	Desc = "Speed of tweening",
-	Step = 0.1,
-	Value = {
-		Min = 0.1,
-		Max = 1,
-		Default = 0.5,
-	},
-	Callback = function(value)
+    Title = "Tween Speed",
+    Desc = "Speed of tweening",
+    Step = 0.1,
+    Value = {
+        Min = 0.1,
+        Max = 1,
+        Default = 0.5,
+    },
+    Callback = function(value)
+        getgenv().tweenSpeed = value
+    end
+})
 
+Tabs.Auto:Section({ Title = "Auto Notifications" })
+
+--// AUTO NOTIFY ROLES \\--
+
+getgenv().autoNotifyRoles = false
+local notifiedPlayers = {}
+
+local function notifyRoles()
+    local success, playerData = pcall(function()
+        return ReplicatedStorage.Remotes.Gameplay.GetCurrentPlayerData:InvokeServer()
+    end)
+    if not success or typeof(playerData) ~= "table" then return end
+
+    local localData = playerData[localPlayer.Name]
+    if localData and not localData.Dead then
+        local localRole = localData.Role or "Unknown"
+        if not notifiedPlayers[localPlayer.Name] then
+            notifiedPlayers[localPlayer.Name] = localRole
+
+            local emoji = "🎭"
+            if localRole == "Murderer" then
+                emoji = "🗡️"
+            elseif localRole == "Sheriff" then
+                emoji = "🔫"
+            end
+
+            StarterGui:SetCore("SendNotification", {
+                Title = emoji .. " Your Role",
+                Text = "Your role is " .. localRole,
+                Icon = "rbxthumb://type=AvatarHeadShot&id=" .. localPlayer.UserId .. "&w=48&h=48",
+                Duration = 5
+            })
+        end
+    end
+
+    for _, player in ipairs(Players:GetPlayers()) do
+        if player ~= localPlayer and player.Character and player.Character:FindFirstChild("Head") then
+            local data = playerData[player.Name]
+            if data and not data.Dead then
+                local role = data.Role
+                if role == "Murderer" or role == "Sheriff" then
+                    if notifiedPlayers[player.Name] ~= role then
+                        notifiedPlayers[player.Name] = role
+
+                        local successThumb, iconUrl = pcall(function()
+                            return Players:GetUserThumbnailAsync(player.UserId, Enum.ThumbnailType.AvatarThumbnail, Enum.ThumbnailSize.Size420x420)
+                        end)
+
+                        if not successThumb then
+                            iconUrl = nil
+                        end
+
+                        local roleEmoji = role == "Murderer" and "🗡️" or "🔫"
+
+                        StarterGui:SetCore("SendNotification", {
+                            Title = roleEmoji .. " " .. role .. " Detected",
+                            Text = player.Name .. " is the " .. role,
+                            Icon = iconUrl,
+                            Duration = 5
+                        })
+                    end
+                else
+                    if notifiedPlayers[player.Name] then
+                        notifiedPlayers[player.Name] = nil
+                    end
+                end
+            end
+        end
+    end
+end
+
+local notifyConnection
+
+Tabs.Auto:Toggle({
+    Title = "Auto Notify Roles",
+    Desc = "Automatically notifies murderer and sheriff",
+    Default = false,
+    Callback = function(state)
+        getgenv().autoNotifyRoles = state
+        notifiedPlayers = {}
+
+        if notifyConnection then
+            notifyConnection:Disconnect()
+            notifyConnection = nil
+        end
+
+        if state then
+            notifyConnection = RunService.RenderStepped:Connect(function()
+                if getgenv().autoNotifyRoles then
+                    notifyRoles()
+                end
+            end)
+        end
+    end
+})
+
+--// AUTO NOTIFY DROPPED GUN \\--
+
+getgenv().autoNotifyGunDrops = false
+local notifiedGunParts = {}
+
+local function notifyGunDrop(part)
+	if notifiedGunParts[part] then return end
+	notifiedGunParts[part] = true
+
+	local gunUrl = "http://www.roblox.com/asset/?id=128271936901307"
+
+	StarterGui:SetCore("SendNotification", {
+		Title = "Gun Dropped",
+		Text = "The gun has been dropped!",
+		Icon = gunUrl,
+		Duration = 5
+	})
+end
+
+local function onGunDrop()
+	for _, model in ipairs(Workspace:GetChildren()) do
+		if model:IsA("Model") then
+			for _, part in ipairs(model:GetChildren()) do
+				if part:IsA("Part") and part.Name == GunName then
+					notifyGunDrop(part)
+				end
+			end
+		end
+	end
+end
+
+local gunNotifyConnection = nil
+
+Tabs.Auto:Toggle({
+	Title = "Auto Notify Gun Drops",
+	Desc = "Automatically notifies dropped guns",
+	Default = false,
+	Callback = function(state)
+		getgenv().autoNotifyGunDrops = state
+		notifiedGunParts = {}
+
+		if gunNotifyConnection then
+			gunNotifyConnection:Disconnect()
+			gunNotifyConnection = nil
+		end
+
+		if state then
+			onGunDrop()
+
+			gunNotifyConnection = Workspace.ChildAdded:Connect(function(model)
+				if model:IsA("Model") then
+					model.ChildAdded:Connect(function(part)
+						if part:IsA("Part") and part.Name == GunName then
+							notifyGunDrop(part)
+						end
+					end)
+				end
+			end)
+		end
 	end
 })

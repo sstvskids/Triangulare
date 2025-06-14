@@ -176,7 +176,7 @@ Tabs.Items:Button({
   end
 })
 Tabs.Items:Button({
-  Title = "Get All Item",
+  Title = "Get All Items",
   Desc = "Gives you all the items.",
   Callback = function()
     GetItems()

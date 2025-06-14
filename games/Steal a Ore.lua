@@ -40,7 +40,10 @@ end
 local function AutoLock()
   while getgenv().AutoLock and task.wait(0.39) do
     pcall(function()
-      print("Locking")
+      if not Settings.Plot.LockPart.BaseLockUI.Value.Visible then
+        firetouchinterest(eu.Character.HumanoidRootPart, Settings.Plot.LockPart, 0)
+        firetouchinterest(eu.Character.HumanoidRootPart, Settings.Plot.LockPart, 1)
+      end
     end)
   end
 end

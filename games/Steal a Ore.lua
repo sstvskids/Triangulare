@@ -98,7 +98,7 @@ local function GetMoney()
           ["gear"] = game:GetService("ReplicatedStorage").Assets.Tools.BanHammer,
           ["desc"] = "by Triangulare",
           ["rebirth"] = 0,
-          ["cost"] = -Settings.Amount
+          ["cost"] = 0 - Settings.Amount
       },
       [2] = "Purchase"
   }

@@ -7,7 +7,7 @@ local eu = game:GetService("Players").LocalPlayer
 local Settings = {
   Plot = nil,
   Tool = "BanHammer",
-  Amount = 5
+  Amount = 9000000
 }
 
 -- Load

@@ -750,7 +750,7 @@ Tabs.Combat:Toggle({ Title = "Auto Perfect Block", Desc = "Perfect blocks attack
 Tabs.Combat:Toggle({ Title = "No Slap", Desc = "Automatically defend against slap attacks.", Value = false, Callback = noSlapCallback })
 Tabs.Combat:Toggle({ Title = "Invisible Walk", Desc = "Force walk loop.", Value = false, Callback = invisibleWalkCallback })
 Tabs.Combat:Section({ Title = "Auto Farm" })
-Tabs.Combat:Keybind({ Title = "Kill All (OFF/ON)", Desc = "Press to kill all players.", Value = "N", Callback = killAllKeybindCallback })
+Tabs.Combat:Button({ Title = "Kill All (OFF/ON)", Desc = "Press to kill all players.", Callback = killAllKeybindCallback })
 
 -- Player Section
 Tabs.Player:Section({ Title = "Movement" })

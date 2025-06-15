@@ -71,9 +71,7 @@ workspace.Bases.Base2.Gate:GetChildren()[18].Transparency == 1, 0.3
 
 -- Tabs
 local Tabs = {
-  Menu = Window:Tab({ Title = "Auto Farm", Icon = "house"}),
-  Items = Window:Tab({ Title = "Items", Icon = "box"}),
-  Money = Window:Tab({ Title = "Money", Icon = "sparkles"}),
+  Menu = Window:Tab({ Title = "Auto Farm", Icon = "house"})
 }
 Window:SelectTab(1)
 

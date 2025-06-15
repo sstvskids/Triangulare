@@ -46,45 +46,6 @@ local function AutoLock()
     end)
   end
 end
-local function ReturnTools()
-  local Names = {}
-  
-  for _, tool in pairs(game:GetService("ReplicatedStorage").Assets.Tools:GetChildren()) do
-    if not table.find(Names, tool.Name) then
-      table.insert(Names, tool.Name)
-    end
-  end
-  
-  return Names
-end
-local function GetItem()
-  local args = {
-      [1] = {
-          ["gear"] = game:GetService("ReplicatedStorage").Assets.Tools[Settings.Tool],
-          ["desc"] = "by Triangulare",
-          ["rebirth"] = 0,
-          ["cost"] = 0
-      },
-      [2] = "Purchase"
-  }
-  
-  game:GetService("ReplicatedStorage").Networker.Remotes.Gear:FireServer(unpack(args))
-end
-local function GetItems()
-  for _, tool in pairs(game:GetService("ReplicatedStorage").Assets.Tools:GetChildren()) do
-    local args = {
-        [1] = {
-            ["gear"] = tool,
-            ["desc"] = "by Triangulare",
-            ["rebirth"] = 0,
-            ["cost"] = 0
-        },
-        [2] = "Purchase"
-    }
-    
-    game:GetService("ReplicatedStorage").Networker.Remotes.Gear:FireServer(unpack(args))
-  end
-end
 
 --[[
 for _, tool in pairs(game:GetService("ReplicatedStorage").Assets.Tools:GetChildren()) do
@@ -134,31 +95,5 @@ Tabs.Menu:Toggle({
   Callback = function(state)
     getgenv().AutoLock = state
     AutoLock()
-  end
-})
-
--- Items
-Tabs.Items:Section({ Title = "Selected" })
-Tabs.Items:Dropdown({
-  Title = "Selected Item",
-  Values = ReturnTools(),
-  Value = Settings.Tool,
-  Callback = function(option)
-    Settings.Tool = option
-  end
-})
-Tabs.Items:Section({ Title = "Get" })
-Tabs.Items:Button({
-  Title = "Get Selected Item",
-  Desc = "Gives you the selected item.",
-  Callback = function()
-    GetItem()
-  end
-})
-Tabs.Items:Button({
-  Title = "Get All Items",
-  Desc = "Gives you all the items.",
-  Callback = function()
-    GetItems()
   end
 })

@@ -377,6 +377,7 @@ local function flingPlayerButton()
         return
     end
 
+    -- YEET
     local existingThrust = myHRP:FindFirstChild("YeetForce")
     if existingThrust then
         existingThrust:Destroy()

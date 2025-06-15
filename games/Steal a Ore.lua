@@ -6,8 +6,7 @@ getgenv().AutoLock = false
 local eu = game:GetService("Players").LocalPlayer
 local Settings = {
   Plot = nil,
-  Tool = "BanHammer",
-  Amount = 9000000
+  Tool = "BanHammer"
 }
 
 -- Load
@@ -86,25 +85,6 @@ local function GetItems()
     game:GetService("ReplicatedStorage").Networker.Remotes.Gear:FireServer(unpack(args))
   end
 end
-local function GetMoney()
-  if eu.Backpack:FindFirstChild("BanHammer") then
-    eu.Backpack.BanHammer:Destroy()
-  elseif eu.Character:FindFirstChild("BanHammer") then
-    eu.Character.BanHammer:Destroy()
-  end
-  
-  local args = {
-      [1] = {
-          ["gear"] = game:GetService("ReplicatedStorage").Assets.Tools.BanHammer,
-          ["desc"] = "by Triangulare",
-          ["rebirth"] = 0,
-          ["cost"] = 0 - Settings.Amount
-      },
-      [2] = "Purchase"
-  }
-  
-  game:GetService("ReplicatedStorage").Networker.Remotes.Gear:FireServer(unpack(args))
-end
 
 --[[
 for _, tool in pairs(game:GetService("ReplicatedStorage").Assets.Tools:GetChildren()) do
@@ -180,24 +160,5 @@ Tabs.Items:Button({
   Desc = "Gives you all the items.",
   Callback = function()
     GetItems()
-  end
-})
-
--- Money
-Tabs.Money:Section({ Title = "Amount" })
-Tabs.Money:Input({
-  Title = "Amount to Get",
-  Value = tostring(Settings.Amount),
-  Placeholder = "Numbers only, ex.: 15",
-  Callback = function(input)
-    Settings.Amount = tonumber(input) or 1
-  end
-})
-Tabs.Money:Section({ Title = "Get" })
-Tabs.Money:Button({
-  Title = "Get Money",
-  Desc = "Gives you the amount of money.",
-  Callback = function()
-    GetMoney()
   end
 })

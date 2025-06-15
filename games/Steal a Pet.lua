@@ -147,7 +147,7 @@ local function SniperPet()
             Icon = "crosshair",
             Duration = 5,
           })
-          task.wait(10)
+          task.wait(9)
           SniperThisMf(pet)
         end
       end)

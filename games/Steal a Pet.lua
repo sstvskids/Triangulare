@@ -129,6 +129,7 @@ local function SniperPet()
     if not pet:GetAttribute("Clicking") and pet:FindFirstChild("HumanoidRootPart") and pet.HumanoidRootPart:FindFirstChild("Purchase_Prompt")  and pet.HumanoidRootPart.Purchase_Prompt:IsA("ProximityPrompt") then
       pet:SetAttribute("Scanning", true)
       repeat task.wait(0.05)
+        if not getgenv().SniperPet then return end
         eu.Character.HumanoidRootPart.CFrame = pet.HumanoidRootPart.CFrame * CFrame.new(0, 3, 0)
         fireproximityprompt(pet.HumanoidRootPart.Purchase_Prompt)
       until not pet or not pet:IsDescendantOf(workspace.Pets.Available)
@@ -169,7 +170,7 @@ workspace.Plots:GetChildren()[3].plot_model.lasers.Laser_Bot
 -- Tabs
 local Tabs = {
   Menu = Window:Tab({ Title = "Auto Farm", Icon = "house"}),
-  Snipe = Window:Tab({ Title = "Snipe Pet", Icon = "crosshair"})
+  Snipe = Window:Tab({ Title = "Sniper Pet", Icon = "crosshair"})
 }
 Window:SelectTab(1)
 
@@ -209,5 +210,17 @@ Tabs.Menu:Toggle({
   Callback = function(state)
     getgenv().AntiLasers = state
     AntiLasers()
+  end
+})
+
+-- Snipe
+Tabs.Snipe:Section({ Title = "Select" })
+Tabs.Snipe:Toggle({
+  Title = "Auto Collect",
+  Desc = "Automatically collects cash.",
+  Value = false,
+  Callback = function(state)
+    getgenv().AutoCollect = state
+    AutoCollect()
   end
 })

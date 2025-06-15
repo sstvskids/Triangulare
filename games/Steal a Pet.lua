@@ -223,7 +223,7 @@ Tabs.Menu:Toggle({
 Tabs.Snipe:Section({ Title = "Select" })
 Tabs.Snipe:Dropdown({
   Title = "Selected Pet",
-  Values = ReturnPets,
+  Values = ReturnPets(),
   Value = Settings.Pet,
   Callback = function(option)
     Settings.Pet = option

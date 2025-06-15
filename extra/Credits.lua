@@ -20,7 +20,8 @@ local function SupportedList(type)
     ["Wizard Tycoon - 2 Player"] = 281489669,
     ["raise bob"] = 84593840279371,
     ["Steal a Pet"] = 106848621211283,
-    ["Steal a Ore"] = 123763291847901
+    ["Steal a Ore"] = 123763291847901,
+    ["Steal a Character"] = 101354156600579
   }
   if type == "Names" then
     local Names = {}

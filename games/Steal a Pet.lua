@@ -3,11 +3,13 @@ getgenv().AutoCollect = false
 getgenv().AutoDeliver = false
 getgenv().AutoLock = false
 getgenv().AntiLasers = false
+getgenv().SniperPet = false
 
 -- Locals
 local eu = game:GetService("Players").LocalPlayer
 local Settings = {
-  Plot = nil
+  Plot = nil,
+  Pet = "CelestialWolf"
 }
 
 -- Load
@@ -111,8 +113,49 @@ local function AntiLasers()
     end
   end
 end
+local function ReturnPets()
+  local Names = {}
+  
+  for _, pet in pairs(game:GetService("ReplicatedStorage").Pets.Models:GetChildren()) do
+    if pet:FindFirstChild("Head") and not table.find(Names, pet.Name) then
+      table.insert(Names, pet.Name)
+    end
+  end
+  
+  return Names
+end
+local function SniperPet()
+  local function SniperThisMf(pet)
+    if not pet:GetAttribute("Clicking") and pet:FindFirstChild("HumanoidRootPart") and pet.HumanoidRootPart:FindFirstChild("Purchase_Prompt")  and pet.HumanoidRootPart.Purchase_Prompt:IsA("ProximityPrompt") then
+      pet:SetAttribute("Scanning", true)
+      repeat task.wait(0.05)
+        eu.Character.HumanoidRootPart.CFrame = pet.HumanoidRootPart.CFrame * CFrame.new(0, 3, 0)
+        fireproximityprompt(pet.HumanoidRootPart.Purchase_Prompt)
+      until not pet or not pet:IsDescendantOf(workspace.Pets.Available)
+    end
+  end
+  while getgenv().SniperPet and task.wait(1) do
+    if not workspace.Pets.Available:GetAttribute("Connected") then
+      workspace.Pets.Available:SetAttribute("Connected", true)
+      workspace.Pets.Available.ChildAdded:Connect(function(pet)
+        if getgenv().SniperPet and pet.Name == Settings.Pet then
+          WindUI:Notify({
+            Title = Settings.Pet .. "detected!",
+            Content = "Make sure you got the money.",
+            Icon = "crosshair",
+            Duration = 5,
+          })
+          SniperThisMf(pet)
+        end
+      end)
+    end
+  end
+end
 
 --[[
+workspace.Pets.Available.Duck.HumanoidRootPart.Purchase_Prompt
+game:GetService("ReplicatedStorage").Pets.Models
+CelestialWolf
 game:GetService("Players").LocalPlayer.leaderstats.Cash
 workspace.Plots:GetChildren()[7].plot_model.pet_slots["1"].main.to_collect.Value > 0
 workspace.Plots:GetChildren()[7].plot_model.pet_slots["1"].main.collect_touch
@@ -125,7 +168,8 @@ workspace.Plots:GetChildren()[3].plot_model.lasers.Laser_Bot
 
 -- Tabs
 local Tabs = {
-  Menu = Window:Tab({ Title = "Auto Farm", Icon = "house"})
+  Menu = Window:Tab({ Title = "Auto Farm", Icon = "house"}),
+  Snipe = Window:Tab({ Title = "Snipe Pet", Icon = "crosshair"})
 }
 Window:SelectTab(1)
 

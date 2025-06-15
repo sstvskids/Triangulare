@@ -9,7 +9,8 @@ getgenv().SniperPet = false
 local eu = game:GetService("Players").LocalPlayer
 local Settings = {
   Plot = nil,
-  Pet = "CelestialWolf"
+  Pet = "CelestialWolf",
+  Busy = false
 }
 
 -- Load
@@ -150,6 +151,11 @@ local function SniperPet()
         end
       end)
     end
+    for _, pet in pairs(workspace.Pets.Available:GetChildren()) do
+      if pet.Name == Settings.Pet then
+        SniperThisMf(pet)
+      end
+    end
   end
 end
 
@@ -215,12 +221,21 @@ Tabs.Menu:Toggle({
 
 -- Snipe
 Tabs.Snipe:Section({ Title = "Select" })
+Tabs.Snipe:Dropdown({
+  Title = "Selected Pet",
+  Values = ReturnPets,
+  Value = Settings.Pet,
+  Callback = function(option)
+    Settings.Pet = option
+  end
+})
+Tabs.Snipe:Section({ Title = "Sniper" })
 Tabs.Snipe:Toggle({
-  Title = "Auto Collect",
-  Desc = "Automatically collects cash.",
+  Title = "Sniper Pet",
+  Desc = "Buys the selected pet when it spawns.",
   Value = false,
   Callback = function(state)
-    getgenv().AutoCollect = state
-    AutoCollect()
+    getgenv().SniperPet = state
+    SniperPet()
   end
 })

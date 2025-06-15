@@ -129,7 +129,7 @@ local function SniperPet()
   local function SniperThisMf(pet)
     if not pet:GetAttribute("Clicking") and pet:FindFirstChild("HumanoidRootPart") and pet.HumanoidRootPart:FindFirstChild("Purchase_Prompt")  and pet.HumanoidRootPart.Purchase_Prompt:IsA("ProximityPrompt") then
       pet:SetAttribute("Scanning", true)
-      repeat task.wait(0.05)
+      repeat task.wait(0.25)
         if not getgenv().SniperPet then return end
         eu.Character.HumanoidRootPart.CFrame = pet.HumanoidRootPart.CFrame * CFrame.new(0, 3, 0)
         fireproximityprompt(pet.HumanoidRootPart.Purchase_Prompt)

@@ -142,7 +142,7 @@ local function SniperPet()
       workspace.Pets.Available.ChildAdded:Connect(function(pet)
         if getgenv().SniperPet and pet.Name == Settings.Pet then
           WindUI:Notify({
-            Title = Settings.Pet .. "detected!",
+            Title = Settings.Pet .. " detected!",
             Content = "Make sure you got the money.",
             Icon = "crosshair",
             Duration = 5,

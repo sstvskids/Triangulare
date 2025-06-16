@@ -13,7 +13,7 @@ task.spawn(function()
   while not Settings.Plot and task.wait(1) do
     for _, plot in pairs(workspace.GameFolder.HouseFolder:GetChildren()) do
       if plot:GetAttribute("Owned") == eu.Name then
-        Settings.Plot = Plot
+        Settings.Plot = plot
         return
       end
     end
@@ -39,6 +39,7 @@ local function AutoLock()
     pcall(function()
       if Settings.Plot.Lasers.Part.Transparency == 1 then
         firetouchinterest(eu.Character.HumanoidRootPart, Settings.Plot.LockPart, 0)
+        firetouchinterest(eu.Character.HumanoidRootPart, Settings.Plot.LockPart, 1)
       end
     end)
   end

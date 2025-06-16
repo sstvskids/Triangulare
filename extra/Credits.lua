@@ -63,13 +63,13 @@ CredTabs.CreditsTab:Section({ Title = "Developers" })
 CredTabs.CreditsTab:Section({ Title = "Discord Server" })
 CredTabs.CreditsTab:Paragraph({
   Title = "Discord Server",
-  Desc = "https://discord.gg/Pwk5HdZX3S",
+  Desc = "https://discord.gg/q7xBfkwdjc",
   Buttons = {
     {
       Title = "Copy Server Link",
       Variant = "Primary",
       Callback = function()
-        setclipboard("https://discord.gg/Pwk5HdZX3S")
+        setclipboard("https://discord.gg/q7xBfkwdjc")
       end,
       Icon = "link"
     }

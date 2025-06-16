@@ -51,6 +51,8 @@ elseif Game == 7790982864 then
   LoadScript("games/Steal a Ore.lua", "Steal a Ore")
 elseif Game == 7577218041 then
   LoadScript("games/Steal a Character.lua", "Steal a Character")
+elseif Game == 7868793307 then
+  LoadScript("games/Steal a Gubby.lua", "Steal a Gubby")
 else
   LoadScript("Triangulare.lua", "Universal")
 end

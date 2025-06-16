@@ -60,10 +60,6 @@ CredTabs.CreditsTab:Section({ Title = "Developers" })
   Title = "Founder Developer",
   Desc = "Discord: @moligrafi",
 })
-  CredTabs.CreditsTab:Paragraph({
-  Title = "Co-Developer",
-  Desc = "Discord: @estranquilo",
-})
 CredTabs.CreditsTab:Section({ Title = "Discord Server" })
 CredTabs.CreditsTab:Paragraph({
   Title = "Discord Server",

@@ -13,12 +13,12 @@ local Window = WindUI:CreateWindow({
   SideBarWidth = 200,
   HasOutline = true,
 
-  KeySystem = {
-    Key = { "iloveyouMoligrafi" },
-    Note = "Join our Discord to get the key and unlock the script:",
-    URL = "https://discord.gg/9Nmhn8JKjA",
-    SaveKey = true,
-  },
+  -- KeySystem = {
+--     Key = { "iloveyouMoligrafi" },
+--     Note = "Join our Discord to get the key and unlock the script:",
+--     URL = "https://discord.gg/9Nmhn8JKjA",
+--     SaveKey = true,
+--   },
 })
 Window:EditOpenButton({
   Title = "Triangulare",

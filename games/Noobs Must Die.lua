@@ -1,7 +1,6 @@
 -- noobs must die rewritten
--- Players.LocalPlayer.Character.Humanoid:GetAttribute('Damage')
 
-local function run(func) func() end
+local run = function(func) func() end
 local cloneref = cloneref or function(val) return val end
 local ReplicatedStorage = cloneref(game:GetService('ReplicatedStorage'))
 local Players = cloneref(game:GetService('Players'))

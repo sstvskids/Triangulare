@@ -1,26 +1,20 @@
-local function LoadScript(path, name)
-  local Initialize = game:HttpGet("https://raw.githubusercontent.com/Moligrafi001/Triangulare/main/extra/Initialize.lua", true)
-  local Script = game:HttpGet("https://raw.githubusercontent.com/Moligrafi001/Triangulare/main/" .. game:GetService("HttpService"):UrlEncode(path), true)
-  local Credits = game:HttpGet("https://raw.githubusercontent.com/Moligrafi001/Triangulare/main/extra/Credits.lua", true)
-  loadstring("local InitializeName = \"" .. tostring(name) .. "\"\n" .. Initialize .. "\ndo\n" .. Script .. "\nend\n" .. Credits)()
+local cloneref = cloneref or function(val) return val end
+local HttpService = cloneref(game:GetService('HttpService'))
+local Players = cloneref(game:GetService('Players'))
+
+local function loadscript(path, name)
+    local init = game:HttpGet('https://raw.githubusercontent.com/sstvskids/Triangulare/'..HttpService:JSONDecode(game:HttpGet('https://api.github.com/repos/sstvskids/Triangulare/commits'))[1].sha..'/extra/Initialize.lua', true)
+    local scriptpath = game:HttpGet('https://raw.githubusercontent.com/sstvskids/Triangulare/'..HttpService:JSONDecode(game:HttpGet('https://api.github.com/repos/sstvskids/Triangulare/commits'))[1].sha..'/'..HttpService:UrlEncode(path), true)
+    local credits = game:HttpGet('https://raw.githubusercontent.com/sstvskids/Triangulare/'..HttpService:JSONDecode(game:HttpGet('https://api.github.com/repos/sstvskids/Triangulare/commits'))[1].sha..'/extra/Credits.lua', true)
+    return loadstring("local InitializeName = \""..tostring(name).."\"\n"..init.."\ndo\n"..scriptpath.."\nend\n"..credits)()
 end
 
-pcall(function()
-  local Ignore = { "HallowHub", "Moligrafi", "Huwaguli" }
-  if not table.find(Ignore, game:GetService("Players").LocalPlayer.Name) then
-    local Luache = loadstring(game:HttpGet("https://raw.githubusercontent.com/Moligrafi001/Luache/main/Source/Library.lua"))()
-    
-    Luache:Settings({
-      Service = "triangulare",
-      DebugMode = true
-    })
-    
-    Luache:Implement("Everything")
-  end
-end)
+if game.PlaceId == 93557410403539 then
+    loadscript('games/Noobs Must Die.lua', 'Noobs Must Die')
+end
 
-local Game = game.GameId
-
+-- why vro
+--[[
 if Game == 7516718402 then
   LoadScript("games/Noobs Must Die.lua", "Noobs Must Die")
 elseif Game == 6944270854 then
@@ -58,3 +52,4 @@ elseif Game == 7842205848 then
 else
   LoadScript("Triangulare.lua", "Universal")
 end
+]]

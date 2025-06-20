@@ -30,7 +30,7 @@ local function ReturnListOf(what)
 
     if what == 'Items' then
         for _, v in pairs(ReplicatedStorage.PlrMan.Items:GetChildren()) do
-            if item:IsA('Part') then
+            if v:IsA('Part') then
                 table.insert(names, v.name)
             end
         end
@@ -103,26 +103,24 @@ local tabs = {
     BlatantTab = Window:Tab({Title = 'Blatant', Icon = 'swords'}),
     ItemsTab = Window:Tab({Title = 'Items', Icon = 'box'}),
     FightersTab = Window:Tab({Title = 'Fighters', Icon = 'person-standing'}),
-    GodsTab = Window:Tab({Title = 'Invincibility', Icon = 'Sparkles'})
+    GodsTab = Window:Tab({Title = 'Invincibility', Icon = 'sparkles'})
 }
 
 Window:SelectTab(1)
 
-Tabs.BlatantTab:Section({Title = 'Detectable'})
+tabs.BlatantTab:Section({Title = 'Detectable'})
 
 run(function()
     local InfDamage
     local oldDamage = lplr.Character.Humanoid:GetAttribute('Damage')
-    InfDamage = Tabs.BlatantTab:Toggle({
+    InfDamage = tabs.BlatantTab:Toggle({
         Title = 'Inf Damage',
         Desc = 'Gives you Infinite Damage',
         Value = false,
         Callback = function(state)
             if state then
                 repeat
-                    if lplr.Character.Humanoid:GetAttribute('Damage') < math.huge then
-                        lplr.Character.Humanoid:SetAttribute('Damage', math.huge)
-                    end
+                    lplr.Character.Humanoid:SetAttribute('Damage', math.huge)
                     task.wait()
                 until not state
             else
@@ -134,7 +132,7 @@ end)
 
 run(function()
     local KilllAll
-    KilllAll = Tabs.BlatantTab:Button({
+    KilllAll = tabs.BlatantTab:Button({
         Title = 'Kill All',
         Desc = 'Kills all noobs alive',
         Callback = function()
@@ -145,7 +143,7 @@ end)
 
 run(function()
     local KillAllAuto
-    KillAllAuto = Tabs.BlatantTab:Toggle({
+    KillAllAuto = tabs.BlatantTab:Toggle({
         Title = 'Auto Kill All',
         Desc = 'Automatically kills all noobs',
         Value = false,
@@ -156,11 +154,11 @@ run(function()
     })
 end)
 
-Tabs.BlatantTab:Section({Title = "Helpful"})
+tabs.BlatantTab:Section({Title = "Helpful"})
 run(function()
     local Aura
     local AuraDist
-    Aura = Tabs.BlatantTab:Toggle({
+    Aura = tabs.BlatantTab:Toggle({
         Title = 'Aura',
         Desc = 'Kills all closer noobs',
         Value = false,
@@ -169,9 +167,9 @@ run(function()
             KillAura()
         end
     })
-    AuraDist = Tabs.BlatantTab:Input({
+    AuraDist = tabs.BlatantTab:Input({
         Title = 'Aura Distance',
-        Value = tostring(settings.distance / 2)
+        Value = tostring(settings.distance / 2),
         Placeholder = 'Numbers only, ex.: 15',
         Callback = function(input)
             settings.distance = (tonumber(input) * 2) or 1
@@ -179,10 +177,10 @@ run(function()
     })
 end)
 
-Tabs.BlatantTab:Section({Title = "Undetectable"})
+tabs.BlatantTab:Section({Title = "Undetectable"})
 run(function()
     local FinishQuests
-    FinishQuests = Tabs.BlatantTab:Button({
+    FinishQuests = tabs.BlatantTab:Button({
         Title = 'Finish All Quests',
         Desc = 'Finishes all active quests.',
         Callback = function()
@@ -194,8 +192,8 @@ run(function()
 end)
 
 run(function()
-    local AutoSkip
-    AutoSkip = Tabs.BlatantTab:Toggle({
+    local AutooSkip
+    AutooSkip = tabs.BlatantTab:Toggle({
         Title = "AutoSkip",
         Desc = 'Auto votes to skip interval.',
         Value = false,

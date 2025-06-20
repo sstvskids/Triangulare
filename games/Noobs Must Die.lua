@@ -7,10 +7,10 @@ local Players = cloneref(game:GetService('Players'))
 local lplr = Players.LocalPlayer
 
 local settings = {
-    Distance = 30,
-    Selected = 'Armor',
-    Fighter = 'Telamon',
-    Times = 1
+    distance = 30,
+    selected = 'Armor',
+    fighter = 'Telamon',
+    times = 1
 }
 
 getgenv().AutoKill = false
@@ -21,7 +21,7 @@ getgenv().InfDamage = false
 
 local function getItem()
     for i = 1, settings.times do
-        ReplicatedStorage.PlrMan.Items.PickupItem:FireServer(Settings.Selected)
+        ReplicatedStorage.PlrMan.Items.PickupItem:FireServer(settings.selected)
     end
 end
 
@@ -40,7 +40,7 @@ local function ReturnListOf(what)
         end
     end
 
-    return Names
+    return names
 end
 
 local function KillAll()
@@ -68,7 +68,7 @@ end
 local function KillAura()
     local function GetNearby()
         local detected = {}
-        for _, v in pairs(workspace:GetPartBoundsInBox(lplr.Character.HumanoidRootPart.CFrame, Vector3.new(Settings.Distance, 20, Settings.Distance), nil)) do
+        for _, v in pairs(workspace:GetPartBoundsInBox(lplr.Character.HumanoidRootPart.CFrame, Vector3.new(settings.distance, 20, settings.distance), nil)) do
             local model = v:FindFirstAncestorWhichIsA('Model')
             if model:IsDescendantOf(workspace.Enemies) then
                 table.insert(detected, model)
@@ -133,8 +133,8 @@ run(function()
 end)
 
 run(function()
-    local KillAll
-    KillAll = Tabs.BlatantTab:Button({
+    local KilllAll
+    KilllAll = Tabs.BlatantTab:Button({
         Title = 'Kill All',
         Desc = 'Kills all noobs alive',
         Callback = function()
@@ -171,10 +171,10 @@ run(function()
     })
     AuraDist = Tabs.BlatantTab:Input({
         Title = 'Aura Distance',
-        Value = tostring(Settings.Distance / 2)
+        Value = tostring(settings.distance / 2)
         Placeholder = 'Numbers only, ex.: 15',
         Callback = function(input)
-            Settings.Distance = (tonumber(input) * 2) or 1
+            settings.distance = (tonumber(input) * 2) or 1
         end
     })
 end)
